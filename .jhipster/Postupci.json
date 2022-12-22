@@ -1,0 +1,53 @@
+{
+  "applications": "*",
+  "changelogDate": "20220813064048",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "postupci",
+  "fields": [
+    {
+      "fieldName": "sifraPostupka",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "brojTendera",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opisPostupka",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "vrstaPostupka",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "datumObjave",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "datumOtvaranja",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "kriterijumCijena",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "drugiKriterijum",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Postupci",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

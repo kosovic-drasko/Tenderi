@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20220331185351",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "hvale_ponude",
+  "fields": [
+    {
+      "fieldName": "sifraPostupka",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "brojPartije",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "inn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "farmaceutskiOblikLijeka",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pakovanje",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "trazenaKolicina",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "procijenjenaVrijednost",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "HvalePonude",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "no",
+  "skipServer": true
+}

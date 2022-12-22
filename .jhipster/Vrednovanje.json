@@ -1,0 +1,80 @@
+{
+  "applications": "*",
+  "changelogDate": "20220819151216",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "view_vrednovanje",
+  "fields": [
+    {
+      "fieldName": "sifraPostupka",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "sifraPonude",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "brojPartije",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nazivProizvodjaca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zasticeniNaziv",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ponudjenaVrijednost",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "rokIsporuke",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "jedinicnaCijena",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "nazivPonudjaca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "atc",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "trazenaKolicina",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "procijenjenaVrijednost",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "vrstaPostupka",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "bodCijena",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "bodRok",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "bodUkupno",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Vrednovanje",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

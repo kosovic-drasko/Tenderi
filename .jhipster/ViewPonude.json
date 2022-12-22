@@ -1,0 +1,64 @@
+{
+  "applications": "*",
+  "changelogDate": "20220813064048",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "view_ponude",
+  "fields": [
+    {
+      "fieldName": "sifraPostupka",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sifraPonude",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "brojPartije",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nazivProizvodjaca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zasticeniNaziv",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ponudjenaVrijednost",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "rokIsporuke",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "jedinicnaCijena",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "selected",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "nazivPonudjaca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "karakteristika",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "ViewPonude",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

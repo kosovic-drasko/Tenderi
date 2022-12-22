@@ -11,6 +11,16 @@
     <property name="datetimeType" value="datetime(6)" dbms="mysql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220813064046_added_entity_Ponude.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220813064047_added_entity_Ponudjaci.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220813064048_added_entity_Postupci.xml" relativeToChangelogFile="false"/>
+<!--    <include file="config/liquibase/changelog/20220813064048_added_entity_ViewPonude.xml" relativeToChangelogFile="false"/>-->
+    <include file="config/liquibase/changelog/20220813064049_added_entity_Specifikacije.xml" relativeToChangelogFile="false"/>
+<!--    <include file="config/liquibase/changelog/20220813064050_added_entity_TenderiHome.xml" relativeToChangelogFile="false"/>-->
+<!--    <include file="config/liquibase/changelog/20220819151216_added_entity_Vrednovanje.xml" relativeToChangelogFile="false"/>-->
+<!--    <include file="config/liquibase/changelog/20220819162640_added_entity_Prvorangirani.xml" relativeToChangelogFile="false"/>-->
+<!--    <include file="config/liquibase/changelog/20221209081752_added_entity_ViewVrednovanje.xml" relativeToChangelogFile="false"/>-->
+<!--    <include file="config/liquibase/changelog/20221209092024_added_entity_ViewPrvorangirani.xml" relativeToChangelogFile="false"/>-->
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

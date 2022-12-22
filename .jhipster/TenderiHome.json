@@ -1,0 +1,14 @@
+{
+  "applications": "*",
+  "changelogDate": "20220813064050",
+  "dto": "no",
+  "embedded": false,
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TenderiHome",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "no"
+}

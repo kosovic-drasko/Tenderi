@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20220813064047",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "ponudjaci",
+  "fields": [
+    {
+      "fieldName": "nazivPonudjaca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "odgovornoLice",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adresaPonudjaca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "bankaRacun",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Ponudjaci",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}
