@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="postupci">
+      <h2 data-cy="postupciDetailsHeading"><span jhiTranslate="tenderiApp.postupci.detail.title">Postupci</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ postupci.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.postupci.sifraPostupka">Sifra Postupka</span></dt>
+        <dd>
+          <span>{{ postupci.sifraPostupka }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.postupci.brojTendera">Broj Tendera</span></dt>
+        <dd>
+          <span>{{ postupci.brojTendera }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.postupci.opisPostupka">Opis Postupka</span></dt>
+        <dd>
+          <span>{{ postupci.opisPostupka }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.postupci.vrstaPostupka">Vrsta Postupka</span></dt>
+        <dd>
+          <span>{{ postupci.vrstaPostupka }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.postupci.datumObjave">Datum Objave</span></dt>
+        <dd>
+          <span>{{ postupci.datumObjave | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.postupci.datumOtvaranja">Datum Otvaranja</span></dt>
+        <dd>
+          <span>{{ postupci.datumOtvaranja | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.postupci.kriterijumCijena">Kriterijum Cijena</span></dt>
+        <dd>
+          <span>{{ postupci.kriterijumCijena }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.postupci.drugiKriterijum">Drugi Kriterijum</span></dt>
+        <dd>
+          <span>{{ postupci.drugiKriterijum }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Nazad</span>
+      </button>
+
+      <button type="button" [routerLink]="['/postupci', postupci.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Izmeni</span>
+      </button>
+    </div>
+  </div>
+</div>

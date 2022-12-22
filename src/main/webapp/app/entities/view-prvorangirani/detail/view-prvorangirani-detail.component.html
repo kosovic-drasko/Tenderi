@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="viewPrvorangirani">
+      <h2 data-cy="viewPrvorangiraniDetailsHeading">
+        <span jhiTranslate="tenderiApp.viewPrvorangirani.detail.title">View Prvorangirani</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.sifraPostupka">Sifra Postupka</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.sifraPostupka }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.nazivPonudjaca">Naziv Ponudjaca</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.nazivPonudjaca }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.sifraPonude">Sifra Ponude</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.sifraPonude }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.atc">Atc</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.atc }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.trazenaKolicina">Trazena Kolicina</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.trazenaKolicina }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.procijenjenaVrijednost">Procijenjena Vrijednost</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.procijenjenaVrijednost }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.nazivProizvodjaca">Naziv Proizvodjaca</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.nazivProizvodjaca }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.zasticeniNaziv">Zasticeni Naziv</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.zasticeniNaziv }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.jedinicnaCijena">Jedinicna Cijena</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.jedinicnaCijena }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.ponudjenaVrijednost">Ponudjena Vrijednost</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.ponudjenaVrijednost }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.rokIsporuke">Rok Isporuke</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.rokIsporuke }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.vrstaPostupka">Vrsta Postupka</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.vrstaPostupka }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.bodCijena">Bod Cijena</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.bodCijena }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.bodRok">Bod Rok</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.bodRok }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.bodUkupno">Bod Ukupno</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.bodUkupno }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.karakteristikaSpecifikacije">Karakteristika Specifikacije</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.karakteristikaSpecifikacije }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPrvorangirani.karakteristikaPonude">Karakteristika Ponude</span></dt>
+        <dd>
+          <span>{{ viewPrvorangirani.karakteristikaPonude }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Nazad</span>
+      </button>
+    </div>
+  </div>
+</div>

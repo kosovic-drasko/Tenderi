@@ -1,0 +1,24 @@
+<form *ngIf="postupci" name="deleteForm" (ngSubmit)="confirmDelete(postupci.id!)">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="postupciDeleteDialogHeading" jhiTranslate="entity.delete.title">Potvrdi brisanje</h4>
+
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <p id="jhi-delete-postupci-heading" jhiTranslate="tenderiApp.postupci.delete.question" [translateValues]="{ id: postupci.id }">
+      Da li ste sigurni da želite da obrišete Postupci pod nazivom {{ postupci.id }}?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Otkaži</span>
+    </button>
+
+    <button id="jhi-confirm-delete-postupci" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Obriši</span>
+    </button>
+  </div>
+</form>

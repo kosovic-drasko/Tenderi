@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-ponudjaci-heading" data-cy="PonudjaciCreateUpdateHeading" jhiTranslate="tenderiApp.ponudjaci.home.createOrEditLabel">
+        Kreirajte ili izmenite Ponudjaci
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponudjaci.nazivPonudjaca" for="field_nazivPonudjaca">Naziv Ponudjaca</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nazivPonudjaca"
+            id="field_nazivPonudjaca"
+            data-cy="nazivPonudjaca"
+            formControlName="nazivPonudjaca"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponudjaci.odgovornoLice" for="field_odgovornoLice">Odgovorno Lice</label>
+          <input
+            type="text"
+            class="form-control"
+            name="odgovornoLice"
+            id="field_odgovornoLice"
+            data-cy="odgovornoLice"
+            formControlName="odgovornoLice"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponudjaci.adresaPonudjaca" for="field_adresaPonudjaca">Adresa Ponudjaca</label>
+          <input
+            type="text"
+            class="form-control"
+            name="adresaPonudjaca"
+            id="field_adresaPonudjaca"
+            data-cy="adresaPonudjaca"
+            formControlName="adresaPonudjaca"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponudjaci.bankaRacun" for="field_bankaRacun">Banka Racun</label>
+          <input
+            type="text"
+            class="form-control"
+            name="bankaRacun"
+            id="field_bankaRacun"
+            data-cy="bankaRacun"
+            formControlName="bankaRacun"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Otkaži</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sačuvaj</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

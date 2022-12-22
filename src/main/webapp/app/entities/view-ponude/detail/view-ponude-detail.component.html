@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="viewPonude">
+      <h2 data-cy="viewPonudeDetailsHeading"><span jhiTranslate="tenderiApp.viewPonude.detail.title">View Ponude</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ viewPonude.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.sifraPostupka">Sifra Postupka</span></dt>
+        <dd>
+          <span>{{ viewPonude.sifraPostupka }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.sifraPonude">Sifra Ponude</span></dt>
+        <dd>
+          <span>{{ viewPonude.sifraPonude }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.brojPartije">Broj Partije</span></dt>
+        <dd>
+          <span>{{ viewPonude.brojPartije }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.nazivProizvodjaca">Naziv Proizvodjaca</span></dt>
+        <dd>
+          <span>{{ viewPonude.nazivProizvodjaca }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.zasticeniNaziv">Zasticeni Naziv</span></dt>
+        <dd>
+          <span>{{ viewPonude.zasticeniNaziv }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.ponudjenaVrijednost">Ponudjena Vrijednost</span></dt>
+        <dd>
+          <span>{{ viewPonude.ponudjenaVrijednost }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.rokIsporuke">Rok Isporuke</span></dt>
+        <dd>
+          <span>{{ viewPonude.rokIsporuke }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.jedinicnaCijena">Jedinicna Cijena</span></dt>
+        <dd>
+          <span>{{ viewPonude.jedinicnaCijena }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.selected">Selected</span></dt>
+        <dd>
+          <span>{{ viewPonude.selected }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.nazivPonudjaca">Naziv Ponudjaca</span></dt>
+        <dd>
+          <span>{{ viewPonude.nazivPonudjaca }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.viewPonude.karakteristika">Karakteristika</span></dt>
+        <dd>
+          <span>{{ viewPonude.karakteristika }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Nazad</span>
+      </button>
+
+      <button type="button" [routerLink]="['/view-ponude', viewPonude.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Izmeni</span>
+      </button>
+    </div>
+  </div>
+</div>

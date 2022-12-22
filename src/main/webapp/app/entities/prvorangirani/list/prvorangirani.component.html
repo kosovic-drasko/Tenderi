@@ -1,0 +1,168 @@
+<div>
+  <h2 id="page-heading" data-cy="PrvorangiraniHeading">
+    <span jhiTranslate="tenderiApp.prvorangirani.home.title">Prvorangiranis</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="tenderiApp.prvorangirani.home.refreshListLabel">Refresh list</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="prvorangiranis?.length === 0">
+    <span jhiTranslate="tenderiApp.prvorangirani.home.notFound">No Prvorangiranis found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="prvorangiranis && prvorangiranis.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sifraPostupka">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.sifraPostupka">Sifra Postupka</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nazivPonudjaca">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.nazivPonudjaca">Naziv Ponudjaca</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sifraPonude">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.sifraPonude">Sifra Ponude</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="brojPartije">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.brojPartije">Broj Partije</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="atc">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.atc">Atc</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="trazenaKolicina">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.trazenaKolicina">Trazena Kolicina</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="procijenjenaVrijednost">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.procijenjenaVrijednost">Procijenjena Vrijednost</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nazivProizvodjaca">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.nazivProizvodjaca">Naziv Proizvodjaca</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="zasticeniNaziv">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.zasticeniNaziv">Zasticeni Naziv</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="jedinicnaCijena">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.jedinicnaCijena">Jedinicna Cijena</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ponudjenaVrijednost">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.ponudjenaVrijednost">Ponudjena Vrijednost</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="rokIsporuke">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.rokIsporuke">Rok Isporuke</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vrstaPostupka">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.vrstaPostupka">Vrsta Postupka</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="bodCijena">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.bodCijena">Bod Cijena</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="bodRok">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.bodRok">Bod Rok</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="bodUkupno">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.prvorangirani.bodUkupno">Bod Ukupno</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prvorangirani of prvorangiranis; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/prvorangirani', prvorangirani.id, 'view']">{{ prvorangirani.id }}</a>
+          </td>
+          <td>{{ prvorangirani.sifraPostupka }}</td>
+          <td>{{ prvorangirani.nazivPonudjaca }}</td>
+          <td>{{ prvorangirani.sifraPonude }}</td>
+          <td>{{ prvorangirani.brojPartije }}</td>
+          <td>{{ prvorangirani.atc }}</td>
+          <td>{{ prvorangirani.trazenaKolicina }}</td>
+          <td>{{ prvorangirani.procijenjenaVrijednost }}</td>
+          <td>{{ prvorangirani.nazivProizvodjaca }}</td>
+          <td>{{ prvorangirani.zasticeniNaziv }}</td>
+          <td>{{ prvorangirani.jedinicnaCijena }}</td>
+          <td>{{ prvorangirani.ponudjenaVrijednost }}</td>
+          <td>{{ prvorangirani.rokIsporuke }}</td>
+          <td>{{ prvorangirani.vrstaPostupka }}</td>
+          <td>{{ prvorangirani.bodCijena }}</td>
+          <td>{{ prvorangirani.bodRok }}</td>
+          <td>{{ prvorangirani.bodUkupno }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/prvorangirani', prvorangirani.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

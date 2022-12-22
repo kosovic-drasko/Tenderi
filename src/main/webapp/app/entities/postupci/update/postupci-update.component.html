@@ -1,0 +1,232 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-postupci-heading" data-cy="PostupciCreateUpdateHeading" jhiTranslate="tenderiApp.postupci.home.createOrEditLabel">
+        Kreirajte ili izmenite Postupci
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.postupci.sifraPostupka" for="field_sifraPostupka">Sifra Postupka</label>
+          <input
+            type="number"
+            class="form-control"
+            name="sifraPostupka"
+            id="field_sifraPostupka"
+            data-cy="sifraPostupka"
+            formControlName="sifraPostupka"
+          />
+          <div
+            *ngIf="
+              editForm.get('sifraPostupka')!.invalid && (editForm.get('sifraPostupka')!.dirty || editForm.get('sifraPostupka')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('sifraPostupka')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('sifraPostupka')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Polje mora biti broj.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.postupci.brojTendera" for="field_brojTendera">Broj Tendera</label>
+          <input
+            type="text"
+            class="form-control"
+            name="brojTendera"
+            id="field_brojTendera"
+            data-cy="brojTendera"
+            formControlName="brojTendera"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.postupci.opisPostupka" for="field_opisPostupka">Opis Postupka</label>
+          <input
+            type="text"
+            class="form-control"
+            name="opisPostupka"
+            id="field_opisPostupka"
+            data-cy="opisPostupka"
+            formControlName="opisPostupka"
+          />
+          <div
+            *ngIf="editForm.get('opisPostupka')!.invalid && (editForm.get('opisPostupka')!.dirty || editForm.get('opisPostupka')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('opisPostupka')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.postupci.vrstaPostupka" for="field_vrstaPostupka">Vrsta Postupka</label>
+          <input
+            type="text"
+            class="form-control"
+            name="vrstaPostupka"
+            id="field_vrstaPostupka"
+            data-cy="vrstaPostupka"
+            formControlName="vrstaPostupka"
+          />
+          <div
+            *ngIf="
+              editForm.get('vrstaPostupka')!.invalid && (editForm.get('vrstaPostupka')!.dirty || editForm.get('vrstaPostupka')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('vrstaPostupka')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.postupci.datumObjave" for="field_datumObjave">Datum Objave</label>
+          <div class="input-group">
+            <input
+              id="field_datumObjave"
+              data-cy="datumObjave"
+              type="text"
+              class="form-control"
+              name="datumObjave"
+              ngbDatepicker
+              #datumObjaveDp="ngbDatepicker"
+              formControlName="datumObjave"
+            />
+            <button type="button" class="btn btn-secondary" (click)="datumObjaveDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.postupci.datumOtvaranja" for="field_datumOtvaranja">Datum Otvaranja</label>
+          <div class="input-group">
+            <input
+              id="field_datumOtvaranja"
+              data-cy="datumOtvaranja"
+              type="text"
+              class="form-control"
+              name="datumOtvaranja"
+              ngbDatepicker
+              #datumOtvaranjaDp="ngbDatepicker"
+              formControlName="datumOtvaranja"
+            />
+            <button type="button" class="btn btn-secondary" (click)="datumOtvaranjaDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.postupci.kriterijumCijena" for="field_kriterijumCijena"
+            >Kriterijum Cijena</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="kriterijumCijena"
+            id="field_kriterijumCijena"
+            data-cy="kriterijumCijena"
+            formControlName="kriterijumCijena"
+          />
+          <div
+            *ngIf="
+              editForm.get('kriterijumCijena')!.invalid &&
+              (editForm.get('kriterijumCijena')!.dirty || editForm.get('kriterijumCijena')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('kriterijumCijena')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('kriterijumCijena')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Polje mora biti broj.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.postupci.drugiKriterijum" for="field_drugiKriterijum">Drugi Kriterijum</label>
+          <input
+            type="number"
+            class="form-control"
+            name="drugiKriterijum"
+            id="field_drugiKriterijum"
+            data-cy="drugiKriterijum"
+            formControlName="drugiKriterijum"
+          />
+          <div
+            *ngIf="
+              editForm.get('drugiKriterijum')!.invalid &&
+              (editForm.get('drugiKriterijum')!.dirty || editForm.get('drugiKriterijum')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('drugiKriterijum')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('drugiKriterijum')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Polje mora biti broj.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Otkaži</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sačuvaj</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

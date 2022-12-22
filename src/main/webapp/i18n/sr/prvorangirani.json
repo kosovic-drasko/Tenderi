@@ -1,0 +1,31 @@
+{
+  "tenderiApp": {
+    "prvorangirani": {
+      "home": {
+        "title": "Prvorangiranis",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Prvorangiranis found"
+      },
+      "detail": {
+        "title": "Prvorangirani"
+      },
+      "id": "ID",
+      "sifraPostupka": "Sifra Postupka",
+      "nazivPonudjaca": "Naziv Ponudjaca",
+      "sifraPonude": "Sifra Ponude",
+      "brojPartije": "Broj Partije",
+      "atc": "Atc",
+      "trazenaKolicina": "Trazena Kolicina",
+      "procijenjenaVrijednost": "Procijenjena Vrijednost",
+      "nazivProizvodjaca": "Naziv Proizvodjaca",
+      "zasticeniNaziv": "Zasticeni Naziv",
+      "jedinicnaCijena": "Jedinicna Cijena",
+      "ponudjenaVrijednost": "Ponudjena Vrijednost",
+      "rokIsporuke": "Rok Isporuke",
+      "vrstaPostupka": "Vrsta Postupka",
+      "bodCijena": "Bod Cijena",
+      "bodRok": "Bod Rok",
+      "bodUkupno": "Bod Ukupno"
+    }
+  }
+}

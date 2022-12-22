@@ -1,0 +1,105 @@
+<div>
+  <h2 id="page-heading" data-cy="HvalePonudeHeading">
+    <span jhiTranslate="tenderiApp.hvalePonude.home.title">Hvale Ponudes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="tenderiApp.hvalePonude.home.refreshListLabel">Refresh list</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="hvalePonudes?.length === 0">
+    <span jhiTranslate="tenderiApp.hvalePonude.home.notFound">No Hvale Ponudes found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="hvalePonudes && hvalePonudes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sifraPostupka">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.hvalePonude.sifraPostupka">Sifra Postupka</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="brojPartije">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.hvalePonude.brojPartije">Broj Partije</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="inn">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.hvalePonude.inn">Inn</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="farmaceutskiOblikLijeka">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.hvalePonude.farmaceutskiOblikLijeka">Farmaceutski Oblik Lijeka</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="pakovanje">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.hvalePonude.pakovanje">Pakovanje</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="trazenaKolicina">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.hvalePonude.trazenaKolicina">Trazena Kolicina</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="procijenjenaVrijednost">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.hvalePonude.procijenjenaVrijednost">Procijenjena Vrijednost</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hvalePonude of hvalePonudes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/hvale-ponude', hvalePonude.id, 'view']">{{ hvalePonude.id }}</a>
+          </td>
+          <td>{{ hvalePonude.sifraPostupka }}</td>
+          <td>{{ hvalePonude.brojPartije }}</td>
+          <td>{{ hvalePonude.inn }}</td>
+          <td>{{ hvalePonude.farmaceutskiOblikLijeka }}</td>
+          <td>{{ hvalePonude.pakovanje }}</td>
+          <td>{{ hvalePonude.trazenaKolicina }}</td>
+          <td>{{ hvalePonude.procijenjenaVrijednost }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/hvale-ponude', hvalePonude.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

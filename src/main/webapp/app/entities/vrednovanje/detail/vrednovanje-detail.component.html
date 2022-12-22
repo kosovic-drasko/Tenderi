@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="vrednovanje">
+      <h2 data-cy="vrednovanjeDetailsHeading"><span jhiTranslate="tenderiApp.vrednovanje.detail.title">Vrednovanje</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ vrednovanje.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.sifraPostupka">Sifra Postupka</span></dt>
+        <dd>
+          <span>{{ vrednovanje.sifraPostupka }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.sifraPonude">Sifra Ponude</span></dt>
+        <dd>
+          <span>{{ vrednovanje.sifraPonude }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.brojPartije">Broj Partije</span></dt>
+        <dd>
+          <span>{{ vrednovanje.brojPartije }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.nazivProizvodjaca">Naziv Proizvodjaca</span></dt>
+        <dd>
+          <span>{{ vrednovanje.nazivProizvodjaca }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.zasticeniNaziv">Zasticeni Naziv</span></dt>
+        <dd>
+          <span>{{ vrednovanje.zasticeniNaziv }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.ponudjenaVrijednost">Ponudjena Vrijednost</span></dt>
+        <dd>
+          <span>{{ vrednovanje.ponudjenaVrijednost }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.rokIsporuke">Rok Isporuke</span></dt>
+        <dd>
+          <span>{{ vrednovanje.rokIsporuke }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.jedinicnaCijena">Jedinicna Cijena</span></dt>
+        <dd>
+          <span>{{ vrednovanje.jedinicnaCijena }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.nazivPonudjaca">Naziv Ponudjaca</span></dt>
+        <dd>
+          <span>{{ vrednovanje.nazivPonudjaca }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.atc">Atc</span></dt>
+        <dd>
+          <span>{{ vrednovanje.atc }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.trazenaKolicina">Trazena Kolicina</span></dt>
+        <dd>
+          <span>{{ vrednovanje.trazenaKolicina }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.procijenjenaVrijednost">Procijenjena Vrijednost</span></dt>
+        <dd>
+          <span>{{ vrednovanje.procijenjenaVrijednost }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.vrstaPostupka">Vrsta Postupka</span></dt>
+        <dd>
+          <span>{{ vrednovanje.vrstaPostupka }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.bodCijena">Bod Cijena</span></dt>
+        <dd>
+          <span>{{ vrednovanje.bodCijena }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.bodRok">Bod Rok</span></dt>
+        <dd>
+          <span>{{ vrednovanje.bodRok }}</span>
+        </dd>
+        <dt><span jhiTranslate="tenderiApp.vrednovanje.bodUkupno">Bod Ukupno</span></dt>
+        <dd>
+          <span>{{ vrednovanje.bodUkupno }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Nazad</span>
+      </button>
+    </div>
+  </div>
+</div>

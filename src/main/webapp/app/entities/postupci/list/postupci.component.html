@@ -1,0 +1,137 @@
+<div>
+  <h2 id="page-heading" data-cy="PostupciHeading">
+    <span jhiTranslate="tenderiApp.postupci.home.title">Postupcis</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="tenderiApp.postupci.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-postupci"
+        [routerLink]="['/postupci/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="tenderiApp.postupci.home.createLabel"> Kreiraj novi Postupci </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="postupcis?.length === 0">
+    <span jhiTranslate="tenderiApp.postupci.home.notFound">No Postupcis found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="postupcis && postupcis.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sifraPostupka">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.postupci.sifraPostupka">Sifra Postupka</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="brojTendera">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.postupci.brojTendera">Broj Tendera</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="opisPostupka">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.postupci.opisPostupka">Opis Postupka</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vrstaPostupka">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.postupci.vrstaPostupka">Vrsta Postupka</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="datumObjave">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.postupci.datumObjave">Datum Objave</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="datumOtvaranja">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.postupci.datumOtvaranja">Datum Otvaranja</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="kriterijumCijena">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.postupci.kriterijumCijena">Kriterijum Cijena</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="drugiKriterijum">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.postupci.drugiKriterijum">Drugi Kriterijum</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let postupci of postupcis; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/postupci', postupci.id, 'view']">{{ postupci.id }}</a>
+          </td>
+          <td>{{ postupci.sifraPostupka }}</td>
+          <td>{{ postupci.brojTendera }}</td>
+          <td>{{ postupci.opisPostupka }}</td>
+          <td>{{ postupci.vrstaPostupka }}</td>
+          <td>{{ postupci.datumObjave | formatMediumDate }}</td>
+          <td>{{ postupci.datumOtvaranja | formatMediumDate }}</td>
+          <td>{{ postupci.kriterijumCijena }}</td>
+          <td>{{ postupci.drugiKriterijum }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/postupci', postupci.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/postupci', postupci.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Izmeni</span>
+              </button>
+
+              <button type="submit" (click)="delete(postupci)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

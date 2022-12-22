@@ -1,0 +1,236 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-ponude-heading" data-cy="PonudeCreateUpdateHeading" jhiTranslate="tenderiApp.ponude.home.createOrEditLabel">
+        Kreirajte ili izmenite Ponude
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.sifraPostupka" for="field_sifraPostupka">Sifra Postupka</label>
+          <input
+            type="number"
+            class="form-control"
+            name="sifraPostupka"
+            id="field_sifraPostupka"
+            data-cy="sifraPostupka"
+            formControlName="sifraPostupka"
+          />
+          <div
+            *ngIf="
+              editForm.get('sifraPostupka')!.invalid && (editForm.get('sifraPostupka')!.dirty || editForm.get('sifraPostupka')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('sifraPostupka')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('sifraPostupka')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Polje mora biti broj.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.sifraPonude" for="field_sifraPonude">Sifra Ponude</label>
+          <input
+            type="number"
+            class="form-control"
+            name="sifraPonude"
+            id="field_sifraPonude"
+            data-cy="sifraPonude"
+            formControlName="sifraPonude"
+          />
+          <div *ngIf="editForm.get('sifraPonude')!.invalid && (editForm.get('sifraPonude')!.dirty || editForm.get('sifraPonude')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('sifraPonude')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('sifraPonude')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Polje mora biti broj.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.brojPartije" for="field_brojPartije">Broj Partije</label>
+          <input
+            type="number"
+            class="form-control"
+            name="brojPartije"
+            id="field_brojPartije"
+            data-cy="brojPartije"
+            formControlName="brojPartije"
+          />
+          <div *ngIf="editForm.get('brojPartije')!.invalid && (editForm.get('brojPartije')!.dirty || editForm.get('brojPartije')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('brojPartije')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('brojPartije')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Polje mora biti broj.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.nazivProizvodjaca" for="field_nazivProizvodjaca"
+            >Naziv Proizvodjaca</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nazivProizvodjaca"
+            id="field_nazivProizvodjaca"
+            data-cy="nazivProizvodjaca"
+            formControlName="nazivProizvodjaca"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.zasticeniNaziv" for="field_zasticeniNaziv">Zasticeni Naziv</label>
+          <input
+            type="text"
+            class="form-control"
+            name="zasticeniNaziv"
+            id="field_zasticeniNaziv"
+            data-cy="zasticeniNaziv"
+            formControlName="zasticeniNaziv"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.ponudjenaVrijednost" for="field_ponudjenaVrijednost"
+            >Ponudjena Vrijednost</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="ponudjenaVrijednost"
+            id="field_ponudjenaVrijednost"
+            data-cy="ponudjenaVrijednost"
+            formControlName="ponudjenaVrijednost"
+          />
+          <div
+            *ngIf="
+              editForm.get('ponudjenaVrijednost')!.invalid &&
+              (editForm.get('ponudjenaVrijednost')!.dirty || editForm.get('ponudjenaVrijednost')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('ponudjenaVrijednost')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Polje je obavezno.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('ponudjenaVrijednost')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Polje mora biti broj.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.rokIsporuke" for="field_rokIsporuke">Rok Isporuke</label>
+          <input
+            type="number"
+            class="form-control"
+            name="rokIsporuke"
+            id="field_rokIsporuke"
+            data-cy="rokIsporuke"
+            formControlName="rokIsporuke"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.jedinicnaCijena" for="field_jedinicnaCijena">Jedinicna Cijena</label>
+          <input
+            type="number"
+            class="form-control"
+            name="jedinicnaCijena"
+            id="field_jedinicnaCijena"
+            data-cy="jedinicnaCijena"
+            formControlName="jedinicnaCijena"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.selected" for="field_selected">Selected</label>
+          <input type="checkbox" class="form-check" name="selected" id="field_selected" data-cy="selected" formControlName="selected" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.sifraPonudjaca" for="field_sifraPonudjaca">Sifra Ponudjaca</label>
+          <input
+            type="number"
+            class="form-control"
+            name="sifraPonudjaca"
+            id="field_sifraPonudjaca"
+            data-cy="sifraPonudjaca"
+            formControlName="sifraPonudjaca"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderiApp.ponude.karakteristika" for="field_karakteristika">Karakteristika</label>
+          <input
+            type="text"
+            class="form-control"
+            name="karakteristika"
+            id="field_karakteristika"
+            data-cy="karakteristika"
+            formControlName="karakteristika"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Otkaži</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sačuvaj</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

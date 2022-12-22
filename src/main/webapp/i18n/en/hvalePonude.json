@@ -1,0 +1,22 @@
+{
+  "tenderiApp": {
+    "hvalePonude": {
+      "home": {
+        "title": "Hvale Ponudes",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Hvale Ponudes found"
+      },
+      "detail": {
+        "title": "Hvale Ponude"
+      },
+      "id": "ID",
+      "sifraPostupka": "Sifra Postupka",
+      "brojPartije": "Broj Partije",
+      "inn": "Inn",
+      "farmaceutskiOblikLijeka": "Farmaceutski Oblik Lijeka",
+      "pakovanje": "Pakovanje",
+      "trazenaKolicina": "Trazena Kolicina",
+      "procijenjenaVrijednost": "Procijenjena Vrijednost"
+    }
+  }
+}

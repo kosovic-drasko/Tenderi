@@ -1,0 +1,31 @@
+{
+  "tenderiApp": {
+    "vrednovanje": {
+      "home": {
+        "title": "Vrednovanjes",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Vrednovanjes found"
+      },
+      "detail": {
+        "title": "Vrednovanje"
+      },
+      "id": "ID",
+      "sifraPostupka": "Sifra Postupka",
+      "sifraPonude": "Sifra Ponude",
+      "brojPartije": "Broj Partije",
+      "nazivProizvodjaca": "Naziv Proizvodjaca",
+      "zasticeniNaziv": "Zasticeni Naziv",
+      "ponudjenaVrijednost": "Ponudjena Vrijednost",
+      "rokIsporuke": "Rok Isporuke",
+      "jedinicnaCijena": "Jedinicna Cijena",
+      "nazivPonudjaca": "Naziv Ponudjaca",
+      "atc": "Atc",
+      "trazenaKolicina": "Trazena Kolicina",
+      "procijenjenaVrijednost": "Procijenjena Vrijednost",
+      "vrstaPostupka": "Vrsta Postupka",
+      "bodCijena": "Bod Cijena",
+      "bodRok": "Bod Rok",
+      "bodUkupno": "Bod Ukupno"
+    }
+  }
+}

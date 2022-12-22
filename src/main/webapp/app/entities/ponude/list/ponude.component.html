@@ -1,0 +1,148 @@
+<div>
+  <h2 id="page-heading" data-cy="PonudeHeading">
+    <span jhiTranslate="tenderiApp.ponude.home.title">Ponudes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="tenderiApp.ponude.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-ponude"
+        [routerLink]="['/ponude/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="tenderiApp.ponude.home.createLabel"> Kreiraj novi Ponude </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="ponudes?.length === 0">
+    <span jhiTranslate="tenderiApp.ponude.home.notFound">No Ponudes found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="ponudes && ponudes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sifraPostupka">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.sifraPostupka">Sifra Postupka</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sifraPonude">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.sifraPonude">Sifra Ponude</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="brojPartije">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.brojPartije">Broj Partije</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nazivProizvodjaca">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.nazivProizvodjaca">Naziv Proizvodjaca</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="zasticeniNaziv">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.zasticeniNaziv">Zasticeni Naziv</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ponudjenaVrijednost">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.ponudjenaVrijednost">Ponudjena Vrijednost</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="rokIsporuke">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.rokIsporuke">Rok Isporuke</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="jedinicnaCijena">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.jedinicnaCijena">Jedinicna Cijena</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="selected">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.selected">Selected</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sifraPonudjaca">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.sifraPonudjaca">Sifra Ponudjaca</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="karakteristika">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.ponude.karakteristika">Karakteristika</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ponude of ponudes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/ponude', ponude.id, 'view']">{{ ponude.id }}</a>
+          </td>
+          <td>{{ ponude.sifraPostupka }}</td>
+          <td>{{ ponude.sifraPonude }}</td>
+          <td>{{ ponude.brojPartije }}</td>
+          <td>{{ ponude.nazivProizvodjaca }}</td>
+          <td>{{ ponude.zasticeniNaziv }}</td>
+          <td>{{ ponude.ponudjenaVrijednost }}</td>
+          <td>{{ ponude.rokIsporuke }}</td>
+          <td>{{ ponude.jedinicnaCijena }}</td>
+          <td>{{ ponude.selected }}</td>
+          <td>{{ ponude.sifraPonudjaca }}</td>
+          <td>{{ ponude.karakteristika }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/ponude', ponude.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/ponude', ponude.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Izmeni</span>
+              </button>
+
+              <button type="submit" (click)="delete(ponude)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
