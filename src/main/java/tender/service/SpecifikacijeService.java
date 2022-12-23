@@ -91,6 +91,9 @@ public class SpecifikacijeService {
                 if (specifikacije.getJedinicnaCijena() != null) {
                     existingSpecifikacije.setJedinicnaCijena(specifikacije.getJedinicnaCijena());
                 }
+                if (specifikacije.getJedinicnaCijena() != null) {
+                    existingSpecifikacije.setJedinicnaCijena(specifikacije.getJedinicnaCijena());
+                }
 
                 return existingSpecifikacije;
             })

@@ -190,4 +190,10 @@ public class PonudeResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/ponude-ponudjaci/{sifra}")
+    public ResponseEntity<?> getPonudePonudjaci(@PathVariable Integer sifra) {
+        Optional<? extends List<?>> ponude = Optional.ofNullable(ponudeRepository.findBySifraPostupkaPonudjaci(sifra));
+        return ResponseUtil.wrapOrNotFound(ponude);
+    }
 }

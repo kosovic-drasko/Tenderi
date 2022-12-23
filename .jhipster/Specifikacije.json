@@ -52,6 +52,10 @@
       "fieldName": "jedinicnaCijena",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "karakteristika",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,
