@@ -193,7 +193,13 @@ public class PonudeResource {
 
     @GetMapping("/ponude-ponudjaci/{sifra}")
     public ResponseEntity<?> getPonudePonudjaci(@PathVariable Integer sifra) {
-        Optional<? extends List<?>> ponude = Optional.ofNullable(ponudeRepository.findBySifraPostupkaPonudjaci(sifra));
+        Optional<? extends List<?>> ponude = Optional.ofNullable(ponudeRepository.findBySifraPostupkaPonudePonudjaci(sifra));
+        return ResponseUtil.wrapOrNotFound(ponude);
+    }
+
+    @GetMapping("/ponude-ponudjaci")
+    public ResponseEntity<?> getPonudePonudjaci() {
+        Optional<? extends List<?>> ponude = Optional.ofNullable(ponudeRepository.PonudePonudjaci());
         return ResponseUtil.wrapOrNotFound(ponude);
     }
 }

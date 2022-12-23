@@ -4,6 +4,7 @@ export interface IPonude {
   sifraPonude?: number | null;
   brojPartije?: number | null;
   nazivProizvodjaca?: string | null;
+  nazivPonudjaca?: string | null;
   zasticeniNaziv?: string | null;
   ponudjenaVrijednost?: number | null;
   rokIsporuke?: number | null;
