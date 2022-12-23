@@ -45,6 +45,9 @@ class PonudeResourceIT {
     private static final String DEFAULT_NAZIV_PROIZVODJACA = "AAAAAAAAAA";
     private static final String UPDATED_NAZIV_PROIZVODJACA = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NAZIV_PONUDJACA = "AAAAAAAAAA";
+    private static final String UPDATED_NAZIV_PONUDJACA = "BBBBBBBBBB";
+
     private static final String DEFAULT_ZASTICENI_NAZIV = "AAAAAAAAAA";
     private static final String UPDATED_ZASTICENI_NAZIV = "BBBBBBBBBB";
 
@@ -99,6 +102,7 @@ class PonudeResourceIT {
             .sifraPonude(DEFAULT_SIFRA_PONUDE)
             .brojPartije(DEFAULT_BROJ_PARTIJE)
             .nazivProizvodjaca(DEFAULT_NAZIV_PROIZVODJACA)
+            .nazivPonudjaca(DEFAULT_NAZIV_PONUDJACA)
             .zasticeniNaziv(DEFAULT_ZASTICENI_NAZIV)
             .ponudjenaVrijednost(DEFAULT_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(DEFAULT_ROK_ISPORUKE)
@@ -121,6 +125,7 @@ class PonudeResourceIT {
             .sifraPonude(UPDATED_SIFRA_PONUDE)
             .brojPartije(UPDATED_BROJ_PARTIJE)
             .nazivProizvodjaca(UPDATED_NAZIV_PROIZVODJACA)
+            .nazivPonudjaca(UPDATED_NAZIV_PONUDJACA)
             .zasticeniNaziv(UPDATED_ZASTICENI_NAZIV)
             .ponudjenaVrijednost(UPDATED_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(UPDATED_ROK_ISPORUKE)
@@ -153,6 +158,7 @@ class PonudeResourceIT {
         assertThat(testPonude.getSifraPonude()).isEqualTo(DEFAULT_SIFRA_PONUDE);
         assertThat(testPonude.getBrojPartije()).isEqualTo(DEFAULT_BROJ_PARTIJE);
         assertThat(testPonude.getNazivProizvodjaca()).isEqualTo(DEFAULT_NAZIV_PROIZVODJACA);
+        assertThat(testPonude.getNazivPonudjaca()).isEqualTo(DEFAULT_NAZIV_PONUDJACA);
         assertThat(testPonude.getZasticeniNaziv()).isEqualTo(DEFAULT_ZASTICENI_NAZIV);
         assertThat(testPonude.getPonudjenaVrijednost()).isEqualTo(DEFAULT_PONUDJENA_VRIJEDNOST);
         assertThat(testPonude.getRokIsporuke()).isEqualTo(DEFAULT_ROK_ISPORUKE);
@@ -264,6 +270,7 @@ class PonudeResourceIT {
             .andExpect(jsonPath("$.[*].sifraPonude").value(hasItem(DEFAULT_SIFRA_PONUDE)))
             .andExpect(jsonPath("$.[*].brojPartije").value(hasItem(DEFAULT_BROJ_PARTIJE)))
             .andExpect(jsonPath("$.[*].nazivProizvodjaca").value(hasItem(DEFAULT_NAZIV_PROIZVODJACA)))
+            .andExpect(jsonPath("$.[*].nazivPonudjaca").value(hasItem(DEFAULT_NAZIV_PONUDJACA)))
             .andExpect(jsonPath("$.[*].zasticeniNaziv").value(hasItem(DEFAULT_ZASTICENI_NAZIV)))
             .andExpect(jsonPath("$.[*].ponudjenaVrijednost").value(hasItem(DEFAULT_PONUDJENA_VRIJEDNOST.doubleValue())))
             .andExpect(jsonPath("$.[*].rokIsporuke").value(hasItem(DEFAULT_ROK_ISPORUKE)))
@@ -289,6 +296,7 @@ class PonudeResourceIT {
             .andExpect(jsonPath("$.sifraPonude").value(DEFAULT_SIFRA_PONUDE))
             .andExpect(jsonPath("$.brojPartije").value(DEFAULT_BROJ_PARTIJE))
             .andExpect(jsonPath("$.nazivProizvodjaca").value(DEFAULT_NAZIV_PROIZVODJACA))
+            .andExpect(jsonPath("$.nazivPonudjaca").value(DEFAULT_NAZIV_PONUDJACA))
             .andExpect(jsonPath("$.zasticeniNaziv").value(DEFAULT_ZASTICENI_NAZIV))
             .andExpect(jsonPath("$.ponudjenaVrijednost").value(DEFAULT_PONUDJENA_VRIJEDNOST.doubleValue()))
             .andExpect(jsonPath("$.rokIsporuke").value(DEFAULT_ROK_ISPORUKE))
@@ -652,6 +660,71 @@ class PonudeResourceIT {
 
         // Get all the ponudeList where nazivProizvodjaca does not contain UPDATED_NAZIV_PROIZVODJACA
         defaultPonudeShouldBeFound("nazivProizvodjaca.doesNotContain=" + UPDATED_NAZIV_PROIZVODJACA);
+    }
+
+    @Test
+    @Transactional
+    void getAllPonudesByNazivPonudjacaIsEqualToSomething() throws Exception {
+        // Initialize the database
+        ponudeRepository.saveAndFlush(ponude);
+
+        // Get all the ponudeList where nazivPonudjaca equals to DEFAULT_NAZIV_PONUDJACA
+        defaultPonudeShouldBeFound("nazivPonudjaca.equals=" + DEFAULT_NAZIV_PONUDJACA);
+
+        // Get all the ponudeList where nazivPonudjaca equals to UPDATED_NAZIV_PONUDJACA
+        defaultPonudeShouldNotBeFound("nazivPonudjaca.equals=" + UPDATED_NAZIV_PONUDJACA);
+    }
+
+    @Test
+    @Transactional
+    void getAllPonudesByNazivPonudjacaIsInShouldWork() throws Exception {
+        // Initialize the database
+        ponudeRepository.saveAndFlush(ponude);
+
+        // Get all the ponudeList where nazivPonudjaca in DEFAULT_NAZIV_PONUDJACA or UPDATED_NAZIV_PONUDJACA
+        defaultPonudeShouldBeFound("nazivPonudjaca.in=" + DEFAULT_NAZIV_PONUDJACA + "," + UPDATED_NAZIV_PONUDJACA);
+
+        // Get all the ponudeList where nazivPonudjaca equals to UPDATED_NAZIV_PONUDJACA
+        defaultPonudeShouldNotBeFound("nazivPonudjaca.in=" + UPDATED_NAZIV_PONUDJACA);
+    }
+
+    @Test
+    @Transactional
+    void getAllPonudesByNazivPonudjacaIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        ponudeRepository.saveAndFlush(ponude);
+
+        // Get all the ponudeList where nazivPonudjaca is not null
+        defaultPonudeShouldBeFound("nazivPonudjaca.specified=true");
+
+        // Get all the ponudeList where nazivPonudjaca is null
+        defaultPonudeShouldNotBeFound("nazivPonudjaca.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllPonudesByNazivPonudjacaContainsSomething() throws Exception {
+        // Initialize the database
+        ponudeRepository.saveAndFlush(ponude);
+
+        // Get all the ponudeList where nazivPonudjaca contains DEFAULT_NAZIV_PONUDJACA
+        defaultPonudeShouldBeFound("nazivPonudjaca.contains=" + DEFAULT_NAZIV_PONUDJACA);
+
+        // Get all the ponudeList where nazivPonudjaca contains UPDATED_NAZIV_PONUDJACA
+        defaultPonudeShouldNotBeFound("nazivPonudjaca.contains=" + UPDATED_NAZIV_PONUDJACA);
+    }
+
+    @Test
+    @Transactional
+    void getAllPonudesByNazivPonudjacaNotContainsSomething() throws Exception {
+        // Initialize the database
+        ponudeRepository.saveAndFlush(ponude);
+
+        // Get all the ponudeList where nazivPonudjaca does not contain DEFAULT_NAZIV_PONUDJACA
+        defaultPonudeShouldNotBeFound("nazivPonudjaca.doesNotContain=" + DEFAULT_NAZIV_PONUDJACA);
+
+        // Get all the ponudeList where nazivPonudjaca does not contain UPDATED_NAZIV_PONUDJACA
+        defaultPonudeShouldBeFound("nazivPonudjaca.doesNotContain=" + UPDATED_NAZIV_PONUDJACA);
     }
 
     @Test
@@ -1200,6 +1273,7 @@ class PonudeResourceIT {
             .andExpect(jsonPath("$.[*].sifraPonude").value(hasItem(DEFAULT_SIFRA_PONUDE)))
             .andExpect(jsonPath("$.[*].brojPartije").value(hasItem(DEFAULT_BROJ_PARTIJE)))
             .andExpect(jsonPath("$.[*].nazivProizvodjaca").value(hasItem(DEFAULT_NAZIV_PROIZVODJACA)))
+            .andExpect(jsonPath("$.[*].nazivPonudjaca").value(hasItem(DEFAULT_NAZIV_PONUDJACA)))
             .andExpect(jsonPath("$.[*].zasticeniNaziv").value(hasItem(DEFAULT_ZASTICENI_NAZIV)))
             .andExpect(jsonPath("$.[*].ponudjenaVrijednost").value(hasItem(DEFAULT_PONUDJENA_VRIJEDNOST.doubleValue())))
             .andExpect(jsonPath("$.[*].rokIsporuke").value(hasItem(DEFAULT_ROK_ISPORUKE)))
@@ -1259,6 +1333,7 @@ class PonudeResourceIT {
             .sifraPonude(UPDATED_SIFRA_PONUDE)
             .brojPartije(UPDATED_BROJ_PARTIJE)
             .nazivProizvodjaca(UPDATED_NAZIV_PROIZVODJACA)
+            .nazivPonudjaca(UPDATED_NAZIV_PONUDJACA)
             .zasticeniNaziv(UPDATED_ZASTICENI_NAZIV)
             .ponudjenaVrijednost(UPDATED_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(UPDATED_ROK_ISPORUKE)
@@ -1283,6 +1358,7 @@ class PonudeResourceIT {
         assertThat(testPonude.getSifraPonude()).isEqualTo(UPDATED_SIFRA_PONUDE);
         assertThat(testPonude.getBrojPartije()).isEqualTo(UPDATED_BROJ_PARTIJE);
         assertThat(testPonude.getNazivProizvodjaca()).isEqualTo(UPDATED_NAZIV_PROIZVODJACA);
+        assertThat(testPonude.getNazivPonudjaca()).isEqualTo(UPDATED_NAZIV_PONUDJACA);
         assertThat(testPonude.getZasticeniNaziv()).isEqualTo(UPDATED_ZASTICENI_NAZIV);
         assertThat(testPonude.getPonudjenaVrijednost()).isEqualTo(UPDATED_PONUDJENA_VRIJEDNOST);
         assertThat(testPonude.getRokIsporuke()).isEqualTo(UPDATED_ROK_ISPORUKE);
@@ -1363,9 +1439,10 @@ class PonudeResourceIT {
         partialUpdatedPonude
             .sifraPostupka(UPDATED_SIFRA_POSTUPKA)
             .nazivProizvodjaca(UPDATED_NAZIV_PROIZVODJACA)
-            .zasticeniNaziv(UPDATED_ZASTICENI_NAZIV)
+            .nazivPonudjaca(UPDATED_NAZIV_PONUDJACA)
+            .ponudjenaVrijednost(UPDATED_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(UPDATED_ROK_ISPORUKE)
-            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA);
+            .karakteristika(UPDATED_KARAKTERISTIKA);
 
         restPonudeMockMvc
             .perform(
@@ -1383,13 +1460,14 @@ class PonudeResourceIT {
         assertThat(testPonude.getSifraPonude()).isEqualTo(DEFAULT_SIFRA_PONUDE);
         assertThat(testPonude.getBrojPartije()).isEqualTo(DEFAULT_BROJ_PARTIJE);
         assertThat(testPonude.getNazivProizvodjaca()).isEqualTo(UPDATED_NAZIV_PROIZVODJACA);
-        assertThat(testPonude.getZasticeniNaziv()).isEqualTo(UPDATED_ZASTICENI_NAZIV);
-        assertThat(testPonude.getPonudjenaVrijednost()).isEqualTo(DEFAULT_PONUDJENA_VRIJEDNOST);
+        assertThat(testPonude.getNazivPonudjaca()).isEqualTo(UPDATED_NAZIV_PONUDJACA);
+        assertThat(testPonude.getZasticeniNaziv()).isEqualTo(DEFAULT_ZASTICENI_NAZIV);
+        assertThat(testPonude.getPonudjenaVrijednost()).isEqualTo(UPDATED_PONUDJENA_VRIJEDNOST);
         assertThat(testPonude.getRokIsporuke()).isEqualTo(UPDATED_ROK_ISPORUKE);
-        assertThat(testPonude.getJedinicnaCijena()).isEqualTo(UPDATED_JEDINICNA_CIJENA);
+        assertThat(testPonude.getJedinicnaCijena()).isEqualTo(DEFAULT_JEDINICNA_CIJENA);
         assertThat(testPonude.getSelected()).isEqualTo(DEFAULT_SELECTED);
         assertThat(testPonude.getSifraPonudjaca()).isEqualTo(DEFAULT_SIFRA_PONUDJACA);
-        assertThat(testPonude.getKarakteristika()).isEqualTo(DEFAULT_KARAKTERISTIKA);
+        assertThat(testPonude.getKarakteristika()).isEqualTo(UPDATED_KARAKTERISTIKA);
     }
 
     @Test
@@ -1409,6 +1487,7 @@ class PonudeResourceIT {
             .sifraPonude(UPDATED_SIFRA_PONUDE)
             .brojPartije(UPDATED_BROJ_PARTIJE)
             .nazivProizvodjaca(UPDATED_NAZIV_PROIZVODJACA)
+            .nazivPonudjaca(UPDATED_NAZIV_PONUDJACA)
             .zasticeniNaziv(UPDATED_ZASTICENI_NAZIV)
             .ponudjenaVrijednost(UPDATED_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(UPDATED_ROK_ISPORUKE)
@@ -1433,6 +1512,7 @@ class PonudeResourceIT {
         assertThat(testPonude.getSifraPonude()).isEqualTo(UPDATED_SIFRA_PONUDE);
         assertThat(testPonude.getBrojPartije()).isEqualTo(UPDATED_BROJ_PARTIJE);
         assertThat(testPonude.getNazivProizvodjaca()).isEqualTo(UPDATED_NAZIV_PROIZVODJACA);
+        assertThat(testPonude.getNazivPonudjaca()).isEqualTo(UPDATED_NAZIV_PONUDJACA);
         assertThat(testPonude.getZasticeniNaziv()).isEqualTo(UPDATED_ZASTICENI_NAZIV);
         assertThat(testPonude.getPonudjenaVrijednost()).isEqualTo(UPDATED_PONUDJENA_VRIJEDNOST);
         assertThat(testPonude.getRokIsporuke()).isEqualTo(UPDATED_ROK_ISPORUKE);
