@@ -29,6 +29,7 @@ type SpecifikacijeFormGroupContent = {
   jedinicaMjere: FormControl<ISpecifikacije['jedinicaMjere']>;
   procijenjenaVrijednost: FormControl<ISpecifikacije['procijenjenaVrijednost']>;
   jedinicnaCijena: FormControl<ISpecifikacije['jedinicnaCijena']>;
+  karakteristika: FormControl<ISpecifikacije['karakteristika']>;
 };
 
 export type SpecifikacijeFormGroup = FormGroup<SpecifikacijeFormGroupContent>;
@@ -67,6 +68,7 @@ export class SpecifikacijeFormService {
       jedinicnaCijena: new FormControl(specifikacijeRawValue.jedinicnaCijena, {
         validators: [Validators.required],
       }),
+      karakteristika: new FormControl(specifikacijeRawValue.karakteristika),
     });
   }
 

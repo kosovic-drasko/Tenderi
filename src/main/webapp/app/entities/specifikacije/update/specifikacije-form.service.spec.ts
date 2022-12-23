@@ -31,6 +31,7 @@ describe('Specifikacije Form Service', () => {
             jedinicaMjere: expect.any(Object),
             procijenjenaVrijednost: expect.any(Object),
             jedinicnaCijena: expect.any(Object),
+            karakteristika: expect.any(Object),
           })
         );
       });
@@ -52,6 +53,7 @@ describe('Specifikacije Form Service', () => {
             jedinicaMjere: expect.any(Object),
             procijenjenaVrijednost: expect.any(Object),
             jedinicnaCijena: expect.any(Object),
+            karakteristika: expect.any(Object),
           })
         );
       });

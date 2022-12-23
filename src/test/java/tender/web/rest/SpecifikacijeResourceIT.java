@@ -68,6 +68,9 @@ class SpecifikacijeResourceIT {
     private static final Double UPDATED_JEDINICNA_CIJENA = 2D;
     private static final Double SMALLER_JEDINICNA_CIJENA = 1D - 1D;
 
+    private static final String DEFAULT_KARAKTERISTIKA = "AAAAAAAAAA";
+    private static final String UPDATED_KARAKTERISTIKA = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/specifikacijes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -103,7 +106,8 @@ class SpecifikacijeResourceIT {
             .pakovanje(DEFAULT_PAKOVANJE)
             .jedinicaMjere(DEFAULT_JEDINICA_MJERE)
             .procijenjenaVrijednost(DEFAULT_PROCIJENJENA_VRIJEDNOST)
-            .jedinicnaCijena(DEFAULT_JEDINICNA_CIJENA);
+            .jedinicnaCijena(DEFAULT_JEDINICNA_CIJENA)
+            .karakteristika(DEFAULT_KARAKTERISTIKA);
         return specifikacije;
     }
 
@@ -125,7 +129,8 @@ class SpecifikacijeResourceIT {
             .pakovanje(UPDATED_PAKOVANJE)
             .jedinicaMjere(UPDATED_JEDINICA_MJERE)
             .procijenjenaVrijednost(UPDATED_PROCIJENJENA_VRIJEDNOST)
-            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA);
+            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA)
+            .karakteristika(UPDATED_KARAKTERISTIKA);
         return specifikacije;
     }
 
@@ -158,6 +163,7 @@ class SpecifikacijeResourceIT {
         assertThat(testSpecifikacije.getJedinicaMjere()).isEqualTo(DEFAULT_JEDINICA_MJERE);
         assertThat(testSpecifikacije.getProcijenjenaVrijednost()).isEqualTo(DEFAULT_PROCIJENJENA_VRIJEDNOST);
         assertThat(testSpecifikacije.getJedinicnaCijena()).isEqualTo(DEFAULT_JEDINICNA_CIJENA);
+        assertThat(testSpecifikacije.getKarakteristika()).isEqualTo(DEFAULT_KARAKTERISTIKA);
     }
 
     @Test
@@ -268,7 +274,8 @@ class SpecifikacijeResourceIT {
             .andExpect(jsonPath("$.[*].pakovanje").value(hasItem(DEFAULT_PAKOVANJE)))
             .andExpect(jsonPath("$.[*].jedinicaMjere").value(hasItem(DEFAULT_JEDINICA_MJERE)))
             .andExpect(jsonPath("$.[*].procijenjenaVrijednost").value(hasItem(DEFAULT_PROCIJENJENA_VRIJEDNOST.doubleValue())))
-            .andExpect(jsonPath("$.[*].jedinicnaCijena").value(hasItem(DEFAULT_JEDINICNA_CIJENA.doubleValue())));
+            .andExpect(jsonPath("$.[*].jedinicnaCijena").value(hasItem(DEFAULT_JEDINICNA_CIJENA.doubleValue())))
+            .andExpect(jsonPath("$.[*].karakteristika").value(hasItem(DEFAULT_KARAKTERISTIKA)));
     }
 
     @Test
@@ -293,7 +300,8 @@ class SpecifikacijeResourceIT {
             .andExpect(jsonPath("$.pakovanje").value(DEFAULT_PAKOVANJE))
             .andExpect(jsonPath("$.jedinicaMjere").value(DEFAULT_JEDINICA_MJERE))
             .andExpect(jsonPath("$.procijenjenaVrijednost").value(DEFAULT_PROCIJENJENA_VRIJEDNOST.doubleValue()))
-            .andExpect(jsonPath("$.jedinicnaCijena").value(DEFAULT_JEDINICNA_CIJENA.doubleValue()));
+            .andExpect(jsonPath("$.jedinicnaCijena").value(DEFAULT_JEDINICNA_CIJENA.doubleValue()))
+            .andExpect(jsonPath("$.karakteristika").value(DEFAULT_KARAKTERISTIKA));
     }
 
     @Test
@@ -1163,6 +1171,71 @@ class SpecifikacijeResourceIT {
         defaultSpecifikacijeShouldBeFound("jedinicnaCijena.greaterThan=" + SMALLER_JEDINICNA_CIJENA);
     }
 
+    @Test
+    @Transactional
+    void getAllSpecifikacijesByKarakteristikaIsEqualToSomething() throws Exception {
+        // Initialize the database
+        specifikacijeRepository.saveAndFlush(specifikacije);
+
+        // Get all the specifikacijeList where karakteristika equals to DEFAULT_KARAKTERISTIKA
+        defaultSpecifikacijeShouldBeFound("karakteristika.equals=" + DEFAULT_KARAKTERISTIKA);
+
+        // Get all the specifikacijeList where karakteristika equals to UPDATED_KARAKTERISTIKA
+        defaultSpecifikacijeShouldNotBeFound("karakteristika.equals=" + UPDATED_KARAKTERISTIKA);
+    }
+
+    @Test
+    @Transactional
+    void getAllSpecifikacijesByKarakteristikaIsInShouldWork() throws Exception {
+        // Initialize the database
+        specifikacijeRepository.saveAndFlush(specifikacije);
+
+        // Get all the specifikacijeList where karakteristika in DEFAULT_KARAKTERISTIKA or UPDATED_KARAKTERISTIKA
+        defaultSpecifikacijeShouldBeFound("karakteristika.in=" + DEFAULT_KARAKTERISTIKA + "," + UPDATED_KARAKTERISTIKA);
+
+        // Get all the specifikacijeList where karakteristika equals to UPDATED_KARAKTERISTIKA
+        defaultSpecifikacijeShouldNotBeFound("karakteristika.in=" + UPDATED_KARAKTERISTIKA);
+    }
+
+    @Test
+    @Transactional
+    void getAllSpecifikacijesByKarakteristikaIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        specifikacijeRepository.saveAndFlush(specifikacije);
+
+        // Get all the specifikacijeList where karakteristika is not null
+        defaultSpecifikacijeShouldBeFound("karakteristika.specified=true");
+
+        // Get all the specifikacijeList where karakteristika is null
+        defaultSpecifikacijeShouldNotBeFound("karakteristika.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllSpecifikacijesByKarakteristikaContainsSomething() throws Exception {
+        // Initialize the database
+        specifikacijeRepository.saveAndFlush(specifikacije);
+
+        // Get all the specifikacijeList where karakteristika contains DEFAULT_KARAKTERISTIKA
+        defaultSpecifikacijeShouldBeFound("karakteristika.contains=" + DEFAULT_KARAKTERISTIKA);
+
+        // Get all the specifikacijeList where karakteristika contains UPDATED_KARAKTERISTIKA
+        defaultSpecifikacijeShouldNotBeFound("karakteristika.contains=" + UPDATED_KARAKTERISTIKA);
+    }
+
+    @Test
+    @Transactional
+    void getAllSpecifikacijesByKarakteristikaNotContainsSomething() throws Exception {
+        // Initialize the database
+        specifikacijeRepository.saveAndFlush(specifikacije);
+
+        // Get all the specifikacijeList where karakteristika does not contain DEFAULT_KARAKTERISTIKA
+        defaultSpecifikacijeShouldNotBeFound("karakteristika.doesNotContain=" + DEFAULT_KARAKTERISTIKA);
+
+        // Get all the specifikacijeList where karakteristika does not contain UPDATED_KARAKTERISTIKA
+        defaultSpecifikacijeShouldBeFound("karakteristika.doesNotContain=" + UPDATED_KARAKTERISTIKA);
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -1182,7 +1255,8 @@ class SpecifikacijeResourceIT {
             .andExpect(jsonPath("$.[*].pakovanje").value(hasItem(DEFAULT_PAKOVANJE)))
             .andExpect(jsonPath("$.[*].jedinicaMjere").value(hasItem(DEFAULT_JEDINICA_MJERE)))
             .andExpect(jsonPath("$.[*].procijenjenaVrijednost").value(hasItem(DEFAULT_PROCIJENJENA_VRIJEDNOST.doubleValue())))
-            .andExpect(jsonPath("$.[*].jedinicnaCijena").value(hasItem(DEFAULT_JEDINICNA_CIJENA.doubleValue())));
+            .andExpect(jsonPath("$.[*].jedinicnaCijena").value(hasItem(DEFAULT_JEDINICNA_CIJENA.doubleValue())))
+            .andExpect(jsonPath("$.[*].karakteristika").value(hasItem(DEFAULT_KARAKTERISTIKA)));
 
         // Check, that the count call also returns 1
         restSpecifikacijeMockMvc
@@ -1241,7 +1315,8 @@ class SpecifikacijeResourceIT {
             .pakovanje(UPDATED_PAKOVANJE)
             .jedinicaMjere(UPDATED_JEDINICA_MJERE)
             .procijenjenaVrijednost(UPDATED_PROCIJENJENA_VRIJEDNOST)
-            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA);
+            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA)
+            .karakteristika(UPDATED_KARAKTERISTIKA);
 
         restSpecifikacijeMockMvc
             .perform(
@@ -1266,6 +1341,7 @@ class SpecifikacijeResourceIT {
         assertThat(testSpecifikacije.getJedinicaMjere()).isEqualTo(UPDATED_JEDINICA_MJERE);
         assertThat(testSpecifikacije.getProcijenjenaVrijednost()).isEqualTo(UPDATED_PROCIJENJENA_VRIJEDNOST);
         assertThat(testSpecifikacije.getJedinicnaCijena()).isEqualTo(UPDATED_JEDINICNA_CIJENA);
+        assertThat(testSpecifikacije.getKarakteristika()).isEqualTo(UPDATED_KARAKTERISTIKA);
     }
 
     @Test
@@ -1342,7 +1418,8 @@ class SpecifikacijeResourceIT {
             .jacinaLijeka(UPDATED_JACINA_LIJEKA)
             .trazenaKolicina(UPDATED_TRAZENA_KOLICINA)
             .pakovanje(UPDATED_PAKOVANJE)
-            .procijenjenaVrijednost(UPDATED_PROCIJENJENA_VRIJEDNOST);
+            .procijenjenaVrijednost(UPDATED_PROCIJENJENA_VRIJEDNOST)
+            .karakteristika(UPDATED_KARAKTERISTIKA);
 
         restSpecifikacijeMockMvc
             .perform(
@@ -1367,6 +1444,7 @@ class SpecifikacijeResourceIT {
         assertThat(testSpecifikacije.getJedinicaMjere()).isEqualTo(DEFAULT_JEDINICA_MJERE);
         assertThat(testSpecifikacije.getProcijenjenaVrijednost()).isEqualTo(UPDATED_PROCIJENJENA_VRIJEDNOST);
         assertThat(testSpecifikacije.getJedinicnaCijena()).isEqualTo(DEFAULT_JEDINICNA_CIJENA);
+        assertThat(testSpecifikacije.getKarakteristika()).isEqualTo(UPDATED_KARAKTERISTIKA);
     }
 
     @Test
@@ -1392,7 +1470,8 @@ class SpecifikacijeResourceIT {
             .pakovanje(UPDATED_PAKOVANJE)
             .jedinicaMjere(UPDATED_JEDINICA_MJERE)
             .procijenjenaVrijednost(UPDATED_PROCIJENJENA_VRIJEDNOST)
-            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA);
+            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA)
+            .karakteristika(UPDATED_KARAKTERISTIKA);
 
         restSpecifikacijeMockMvc
             .perform(
@@ -1417,6 +1496,7 @@ class SpecifikacijeResourceIT {
         assertThat(testSpecifikacije.getJedinicaMjere()).isEqualTo(UPDATED_JEDINICA_MJERE);
         assertThat(testSpecifikacije.getProcijenjenaVrijednost()).isEqualTo(UPDATED_PROCIJENJENA_VRIJEDNOST);
         assertThat(testSpecifikacije.getJedinicnaCijena()).isEqualTo(UPDATED_JEDINICNA_CIJENA);
+        assertThat(testSpecifikacije.getKarakteristika()).isEqualTo(UPDATED_KARAKTERISTIKA);
     }
 
     @Test

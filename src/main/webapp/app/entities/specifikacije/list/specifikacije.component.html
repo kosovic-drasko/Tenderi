@@ -104,6 +104,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="karakteristika">
+            <div class="d-flex">
+              <span jhiTranslate="tenderiApp.specifikacije.karakteristika">Karakteristika</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -123,6 +129,7 @@
           <td>{{ specifikacije.jedinicaMjere }}</td>
           <td>{{ specifikacije.procijenjenaVrijednost }}</td>
           <td>{{ specifikacije.jedinicnaCijena }}</td>
+          <td>{{ specifikacije.karakteristika }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button

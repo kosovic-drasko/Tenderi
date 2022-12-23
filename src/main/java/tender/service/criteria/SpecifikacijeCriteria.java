@@ -45,6 +45,8 @@ public class SpecifikacijeCriteria implements Serializable, Criteria {
 
     private DoubleFilter jedinicnaCijena;
 
+    private StringFilter karakteristika;
+
     private Boolean distinct;
 
     public SpecifikacijeCriteria() {}
@@ -62,6 +64,7 @@ public class SpecifikacijeCriteria implements Serializable, Criteria {
         this.jedinicaMjere = other.jedinicaMjere == null ? null : other.jedinicaMjere.copy();
         this.procijenjenaVrijednost = other.procijenjenaVrijednost == null ? null : other.procijenjenaVrijednost.copy();
         this.jedinicnaCijena = other.jedinicnaCijena == null ? null : other.jedinicnaCijena.copy();
+        this.karakteristika = other.karakteristika == null ? null : other.karakteristika.copy();
         this.distinct = other.distinct;
     }
 
@@ -250,6 +253,21 @@ public class SpecifikacijeCriteria implements Serializable, Criteria {
         this.jedinicnaCijena = jedinicnaCijena;
     }
 
+    public StringFilter getKarakteristika() {
+        return karakteristika;
+    }
+
+    public StringFilter karakteristika() {
+        if (karakteristika == null) {
+            karakteristika = new StringFilter();
+        }
+        return karakteristika;
+    }
+
+    public void setKarakteristika(StringFilter karakteristika) {
+        this.karakteristika = karakteristika;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -280,6 +298,7 @@ public class SpecifikacijeCriteria implements Serializable, Criteria {
             Objects.equals(jedinicaMjere, that.jedinicaMjere) &&
             Objects.equals(procijenjenaVrijednost, that.procijenjenaVrijednost) &&
             Objects.equals(jedinicnaCijena, that.jedinicnaCijena) &&
+            Objects.equals(karakteristika, that.karakteristika) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -299,6 +318,7 @@ public class SpecifikacijeCriteria implements Serializable, Criteria {
             jedinicaMjere,
             procijenjenaVrijednost,
             jedinicnaCijena,
+            karakteristika,
             distinct
         );
     }
@@ -319,6 +339,7 @@ public class SpecifikacijeCriteria implements Serializable, Criteria {
             (jedinicaMjere != null ? "jedinicaMjere=" + jedinicaMjere + ", " : "") +
             (procijenjenaVrijednost != null ? "procijenjenaVrijednost=" + procijenjenaVrijednost + ", " : "") +
             (jedinicnaCijena != null ? "jedinicnaCijena=" + jedinicnaCijena + ", " : "") +
+            (karakteristika != null ? "karakteristika=" + karakteristika + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

@@ -122,6 +122,9 @@ public class SpecifikacijeQueryService extends QueryService<Specifikacije> {
             if (criteria.getJedinicnaCijena() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getJedinicnaCijena(), Specifikacije_.jedinicnaCijena));
             }
+            if (criteria.getKarakteristika() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getKarakteristika(), Specifikacije_.karakteristika));
+            }
         }
         return specification;
     }

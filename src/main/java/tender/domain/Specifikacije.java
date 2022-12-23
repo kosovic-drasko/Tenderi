@@ -59,6 +59,9 @@ public class Specifikacije implements Serializable {
     @Column(name = "jedinicna_cijena", nullable = false)
     private Double jedinicnaCijena;
 
+    @Column(name = "karakteristika")
+    private String karakteristika;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -217,6 +220,19 @@ public class Specifikacije implements Serializable {
         this.jedinicnaCijena = jedinicnaCijena;
     }
 
+    public String getKarakteristika() {
+        return this.karakteristika;
+    }
+
+    public Specifikacije karakteristika(String karakteristika) {
+        this.setKarakteristika(karakteristika);
+        return this;
+    }
+
+    public void setKarakteristika(String karakteristika) {
+        this.karakteristika = karakteristika;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -252,6 +268,7 @@ public class Specifikacije implements Serializable {
             ", jedinicaMjere='" + getJedinicaMjere() + "'" +
             ", procijenjenaVrijednost=" + getProcijenjenaVrijednost() +
             ", jedinicnaCijena=" + getJedinicnaCijena() +
+            ", karakteristika='" + getKarakteristika() + "'" +
             "}";
     }
 }

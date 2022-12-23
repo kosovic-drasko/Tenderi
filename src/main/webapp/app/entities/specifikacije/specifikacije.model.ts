@@ -11,6 +11,7 @@ export interface ISpecifikacije {
   jedinicaMjere?: string | null;
   procijenjenaVrijednost?: number | null;
   jedinicnaCijena?: number | null;
+  karakteristika?: string | null;
 }
 
 export type NewSpecifikacije = Omit<ISpecifikacije, 'id'> & { id: null };
