@@ -48,12 +48,16 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
-  messages:
-    cache-duration: PT1S # 1 second, see the ISO 8601 standard
+    host: smtp-mail.outlook.com
+    port: 587
+    username: drasko.kosovic@outlook.com #Replace this field with your Outlook username.
+    password: Drasko1959@ #Replace this field with your Outlook password.
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp-mail.outlook.com
   thymeleaf:
     cache: false
 
