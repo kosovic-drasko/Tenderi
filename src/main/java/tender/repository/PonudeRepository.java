@@ -24,10 +24,10 @@ public interface PonudeRepository extends JpaRepository<Ponude, Long>, JpaSpecif
 
     @Query(
         value = "SELECT ponude.*, \n" +
-        "ponudjaci.naziv_ponudjaca\n" +
-        "FROM\n" +
-        "ponude\n" +
-        "INNER JOIN ponudjaci ON ponude.sifra_ponudjaca = ponudjaci.id",
+        "        ponudjaci.naziv_ponudjaca\n" +
+        "        FROM\n" +
+        "        ponude\n" +
+        "        INNER JOIN ponudjaci ON ponude.sifra_ponudjaca = ponudjaci.id",
         nativeQuery = true
     )
     List<Ponude> PonudePonudjaci();
