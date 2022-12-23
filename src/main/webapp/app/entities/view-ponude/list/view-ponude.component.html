@@ -12,7 +12,7 @@
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-view-ponude"
-        [routerLink]="['/view-ponude/new']"
+        [routerLink]="['/ponude/new']"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="tenderiApp.viewPonude.home.createLabel"> Kreiraj novi View Ponude </span>
@@ -137,7 +137,7 @@
 
               <button
                 type="submit"
-                [routerLink]="['/view-ponude', viewPonude.id, 'edit']"
+                [routerLink]="['/ponude', viewPonude.id, 'edit']"
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >
