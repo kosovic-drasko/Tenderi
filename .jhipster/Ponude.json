@@ -25,10 +25,6 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "nazivPonudjaca",
-      "fieldType": "String"
-    },
-    {
       "fieldName": "zasticeniNaziv",
       "fieldType": "String"
     },

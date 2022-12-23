@@ -31,8 +31,6 @@ public class PonudeCriteria implements Serializable, Criteria {
 
     private StringFilter nazivProizvodjaca;
 
-    private StringFilter nazivPonudjaca;
-
     private StringFilter zasticeniNaziv;
 
     private DoubleFilter ponudjenaVrijednost;
@@ -57,7 +55,6 @@ public class PonudeCriteria implements Serializable, Criteria {
         this.sifraPonude = other.sifraPonude == null ? null : other.sifraPonude.copy();
         this.brojPartije = other.brojPartije == null ? null : other.brojPartije.copy();
         this.nazivProizvodjaca = other.nazivProizvodjaca == null ? null : other.nazivProizvodjaca.copy();
-        this.nazivPonudjaca = other.nazivPonudjaca == null ? null : other.nazivPonudjaca.copy();
         this.zasticeniNaziv = other.zasticeniNaziv == null ? null : other.zasticeniNaziv.copy();
         this.ponudjenaVrijednost = other.ponudjenaVrijednost == null ? null : other.ponudjenaVrijednost.copy();
         this.rokIsporuke = other.rokIsporuke == null ? null : other.rokIsporuke.copy();
@@ -146,21 +143,6 @@ public class PonudeCriteria implements Serializable, Criteria {
 
     public void setNazivProizvodjaca(StringFilter nazivProizvodjaca) {
         this.nazivProizvodjaca = nazivProizvodjaca;
-    }
-
-    public StringFilter getNazivPonudjaca() {
-        return nazivPonudjaca;
-    }
-
-    public StringFilter nazivPonudjaca() {
-        if (nazivPonudjaca == null) {
-            nazivPonudjaca = new StringFilter();
-        }
-        return nazivPonudjaca;
-    }
-
-    public void setNazivPonudjaca(StringFilter nazivPonudjaca) {
-        this.nazivPonudjaca = nazivPonudjaca;
     }
 
     public StringFilter getZasticeniNaziv() {
@@ -291,7 +273,6 @@ public class PonudeCriteria implements Serializable, Criteria {
             Objects.equals(sifraPonude, that.sifraPonude) &&
             Objects.equals(brojPartije, that.brojPartije) &&
             Objects.equals(nazivProizvodjaca, that.nazivProizvodjaca) &&
-            Objects.equals(nazivPonudjaca, that.nazivPonudjaca) &&
             Objects.equals(zasticeniNaziv, that.zasticeniNaziv) &&
             Objects.equals(ponudjenaVrijednost, that.ponudjenaVrijednost) &&
             Objects.equals(rokIsporuke, that.rokIsporuke) &&
@@ -311,7 +292,6 @@ public class PonudeCriteria implements Serializable, Criteria {
             sifraPonude,
             brojPartije,
             nazivProizvodjaca,
-            nazivPonudjaca,
             zasticeniNaziv,
             ponudjenaVrijednost,
             rokIsporuke,
@@ -332,7 +312,6 @@ public class PonudeCriteria implements Serializable, Criteria {
             (sifraPonude != null ? "sifraPonude=" + sifraPonude + ", " : "") +
             (brojPartije != null ? "brojPartije=" + brojPartije + ", " : "") +
             (nazivProizvodjaca != null ? "nazivProizvodjaca=" + nazivProizvodjaca + ", " : "") +
-            (nazivPonudjaca != null ? "nazivPonudjaca=" + nazivPonudjaca + ", " : "") +
             (zasticeniNaziv != null ? "zasticeniNaziv=" + zasticeniNaziv + ", " : "") +
             (ponudjenaVrijednost != null ? "ponudjenaVrijednost=" + ponudjenaVrijednost + ", " : "") +
             (rokIsporuke != null ? "rokIsporuke=" + rokIsporuke + ", " : "") +

@@ -26,9 +26,6 @@
             <column name="naziv_proizvodjaca" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="naziv_ponudjaca" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <column name="zasticeni_naziv" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -75,7 +72,6 @@
             <column name="sifra_ponude" type="numeric"/>
             <column name="broj_partije" type="numeric"/>
             <column name="naziv_proizvodjaca" type="string"/>
-            <column name="naziv_ponudjaca" type="string"/>
             <column name="zasticeni_naziv" type="string"/>
             <column name="ponudjena_vrijednost" type="numeric"/>
             <column name="rok_isporuke" type="numeric"/>

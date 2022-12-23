@@ -14,7 +14,7 @@ export type EntityArrayResponseType = HttpResponse<IPonude[]>;
 
 @Injectable({ providedIn: 'root' })
 export class PonudeService {
-  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/ponude-ponudjaci');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/ponudes');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
