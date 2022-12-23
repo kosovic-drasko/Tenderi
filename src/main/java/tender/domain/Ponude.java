@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "ponude")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Ponude extends AbstractAuditingEntity implements Serializable {
+public class Ponude implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,6 +36,9 @@ public class Ponude extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "naziv_proizvodjaca")
     private String nazivProizvodjaca;
+
+    @Column(name = "naziv_ponudjaca")
+    private String nazivPonudjaca;
 
     @Column(name = "zasticeni_naziv")
     private String zasticeniNaziv;
@@ -124,6 +127,19 @@ public class Ponude extends AbstractAuditingEntity implements Serializable {
 
     public void setNazivProizvodjaca(String nazivProizvodjaca) {
         this.nazivProizvodjaca = nazivProizvodjaca;
+    }
+
+    public String getNazivPonudjaca() {
+        return this.nazivPonudjaca;
+    }
+
+    public Ponude nazivPonudjaca(String nazivPonudjaca) {
+        this.setNazivPonudjaca(nazivPonudjaca);
+        return this;
+    }
+
+    public void setNazivPonudjaca(String nazivPonudjaca) {
+        this.nazivPonudjaca = nazivPonudjaca;
     }
 
     public String getZasticeniNaziv() {
@@ -245,6 +261,7 @@ public class Ponude extends AbstractAuditingEntity implements Serializable {
             ", sifraPonude=" + getSifraPonude() +
             ", brojPartije=" + getBrojPartije() +
             ", nazivProizvodjaca='" + getNazivProizvodjaca() + "'" +
+            ", nazivPonudjaca='" + getNazivPonudjaca() + "'" +
             ", zasticeniNaziv='" + getZasticeniNaziv() + "'" +
             ", ponudjenaVrijednost=" + getPonudjenaVrijednost() +
             ", rokIsporuke=" + getRokIsporuke() +

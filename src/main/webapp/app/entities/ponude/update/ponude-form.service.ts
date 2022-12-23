@@ -22,6 +22,7 @@ type PonudeFormGroupContent = {
   sifraPonude: FormControl<IPonude['sifraPonude']>;
   brojPartije: FormControl<IPonude['brojPartije']>;
   nazivProizvodjaca: FormControl<IPonude['nazivProizvodjaca']>;
+  nazivPonudjaca: FormControl<IPonude['nazivPonudjaca']>;
   zasticeniNaziv: FormControl<IPonude['zasticeniNaziv']>;
   ponudjenaVrijednost: FormControl<IPonude['ponudjenaVrijednost']>;
   rokIsporuke: FormControl<IPonude['rokIsporuke']>;
@@ -58,6 +59,7 @@ export class PonudeFormService {
         validators: [Validators.required],
       }),
       nazivProizvodjaca: new FormControl(ponudeRawValue.nazivProizvodjaca),
+      nazivPonudjaca: new FormControl(ponudeRawValue.nazivPonudjaca),
       zasticeniNaziv: new FormControl(ponudeRawValue.zasticeniNaziv),
       ponudjenaVrijednost: new FormControl(ponudeRawValue.ponudjenaVrijednost, {
         validators: [Validators.required],
