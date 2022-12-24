@@ -31,6 +31,10 @@ public class ViewPonude implements Serializable {
     private Integer sifraPonude;
 
     @NotNull
+    @Column(name = "sifra_ponudjaca", nullable = false)
+    private Integer sifraPonudjaca;
+
+    @NotNull
     @Column(name = "broj_partije", nullable = false)
     private Integer brojPartije;
 
@@ -60,6 +64,14 @@ public class ViewPonude implements Serializable {
     private String karakteristika;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Integer getSifraPonudjaca() {
+        return sifraPonudjaca;
+    }
+
+    public void setSifraPonudjaca(Integer sifraPonudjaca) {
+        this.sifraPonudjaca = sifraPonudjaca;
+    }
 
     public Long getId() {
         return this.id;

@@ -18,7 +18,7 @@ export class SpecifikacijeService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(specifikacije: NewSpecifikacije): Observable<EntityResponseType> {
+  create(specifikacije: ISpecifikacije | (Omit<ISpecifikacije, 'id'> & { id: null })): Observable<EntityResponseType> {
     return this.http.post<ISpecifikacije>(this.resourceUrl, specifikacije, { observe: 'response' });
   }
 

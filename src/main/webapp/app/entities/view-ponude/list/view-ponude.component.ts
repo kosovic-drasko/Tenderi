@@ -11,6 +11,7 @@ import { SortService } from 'app/shared/sort/sort.service';
 import { PonudeService } from '../../ponude/service/ponude.service';
 import { PonudeDeleteDialogComponent } from '../../ponude/delete/ponude-delete-dialog.component';
 import { IPonude } from '../../ponude/ponude.model';
+import { PonudeUpdateComponent } from '../../ponude/update/ponude-update.component';
 
 @Component({
   selector: 'jhi-view-ponude',
@@ -112,5 +113,48 @@ export class ViewPonudeComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+
+  update(
+    id?: number,
+    sifraPostupka?: number,
+    sifraPonude?: number,
+    brojPartije?: number,
+    sifraPonudjaca?: number | null,
+    nazivProizvodjaca?: string | null,
+    zasticeniNaziv?: string | null,
+    karakteristika?: string | null,
+    ponudjenaVrijednost?: number,
+    jedinicnaCijena?: number | null,
+    selected?: boolean | null,
+    rokIsporuke?: number
+  ): void {
+    const modalRef = this.modalService.open(PonudeUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.sifraPostupka = sifraPostupka;
+    modalRef.componentInstance.sifraPonude = sifraPonude;
+    modalRef.componentInstance.brojPartije = brojPartije;
+    modalRef.componentInstance.sifraPonudjaca = sifraPonudjaca;
+    modalRef.componentInstance.nazivProizvodjaca = nazivProizvodjaca;
+    modalRef.componentInstance.zasticeniNaziv = zasticeniNaziv;
+    modalRef.componentInstance.karakteristika = karakteristika;
+    modalRef.componentInstance.ponudjenaVrijednost = ponudjenaVrijednost;
+    modalRef.componentInstance.jedinicnaCijena = jedinicnaCijena;
+    modalRef.componentInstance.selected = selected;
+    modalRef.componentInstance.rokIsporuke = rokIsporuke;
+
+    modalRef.closed.subscribe(() => {
+      // if (this.postupak !== undefined) {
+      //   this.loadPageSifraPostupka();
+      // } else {
+      this.load();
+      // }
+    });
+  }
+  add(): void {
+    const modalRef = this.modalService.open(PonudeUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.closed.subscribe(() => {
+      this.load();
+    });
   }
 }

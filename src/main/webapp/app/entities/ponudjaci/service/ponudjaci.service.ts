@@ -18,7 +18,7 @@ export class PonudjaciService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(ponudjaci: NewPonudjaci): Observable<EntityResponseType> {
+  create(ponudjaci: IPonudjaci | (Omit<IPonudjaci, 'id'> & { id: null })): Observable<EntityResponseType> {
     return this.http.post<IPonudjaci>(this.resourceUrl, ponudjaci, { observe: 'response' });
   }
 

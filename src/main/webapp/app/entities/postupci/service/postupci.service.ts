@@ -32,7 +32,7 @@ export class PostupciService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(postupci: NewPostupci): Observable<EntityResponseType> {
+  create(postupci: IPostupci | (Omit<IPostupci, 'id'> & { id: null })): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(postupci);
     return this.http
       .post<RestPostupci>(this.resourceUrl, copy, { observe: 'response' })

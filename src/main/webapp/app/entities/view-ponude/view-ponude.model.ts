@@ -8,6 +8,7 @@ export interface IViewPonude {
   ponudjenaVrijednost?: number | null;
   rokIsporuke?: number | null;
   jedinicnaCijena?: number | null;
+  sifraPonudjaca?: number | null;
   selected?: boolean | null;
   nazivPonudjaca?: string | null;
   karakteristika?: string | null;

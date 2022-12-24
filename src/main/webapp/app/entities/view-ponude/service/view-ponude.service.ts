@@ -18,7 +18,7 @@ export class ViewPonudeService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(viewPonude: NewViewPonude): Observable<EntityResponseType> {
+  create(viewPonude: IViewPonude | (Omit<IViewPonude, 'id'> & { id: null })): Observable<EntityResponseType> {
     return this.http.post<IViewPonude>(this.resourceUrl, viewPonude, { observe: 'response' });
   }
 

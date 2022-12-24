@@ -1,3 +1,168 @@
+<!--<div>-->
+<!--  <h2 id="page-heading" data-cy="ViewPonudeHeading">-->
+<!--    <span jhiTranslate="tenderiApp.viewPonude.home.title">View Ponudes</span>-->
+
+<!--    <div class="d-flex justify-content-end">-->
+<!--      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">-->
+<!--        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>-->
+<!--        <span jhiTranslate="tenderiApp.viewPonude.home.refreshListLabel">Refresh list</span>-->
+<!--      </button>-->
+
+<!--      <button-->
+<!--        id="jh-create-entity"-->
+<!--        data-cy="entityCreateButton"-->
+<!--        class="btn btn-primary jh-create-entity create-view-ponude"-->
+<!--        (click)="add()"-->
+<!--      >-->
+<!--        <fa-icon icon="plus"></fa-icon>-->
+<!--        <span jhiTranslate="tenderiApp.viewPonude.home.createLabel"> Kreiraj novi View Ponude </span>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </h2>-->
+
+<!--  <jhi-alert-error></jhi-alert-error>-->
+
+<!--  <jhi-alert></jhi-alert>-->
+
+<!--  <div class="alert alert-warning" id="no-result" *ngIf="viewPonudes?.length === 0">-->
+<!--    <span jhiTranslate="tenderiApp.viewPonude.home.notFound">No View Ponudes found</span>-->
+<!--  </div>-->
+
+<!--  <div class="table-responsive table-entities" id="entities" *ngIf="viewPonudes && viewPonudes.length > 0">-->
+<!--    <table class="table table-striped" aria-describedby="page-heading">-->
+<!--      <thead>-->
+<!--        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">-->
+<!--          <th scope="col" jhiSortBy="id">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="global.field.id">ID</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <th scope="col" jhiSortBy="sifraPostupka">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="tenderiApp.viewPonude.sifraPostupka">Sifra Postupka</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <th scope="col" jhiSortBy="sifraPonude">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="tenderiApp.viewPonude.sifraPonude">Sifra Ponude</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <th scope="col" jhiSortBy="brojPartije">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="tenderiApp.viewPonude.brojPartije">Broj Partije</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <th scope="col" jhiSortBy="nazivProizvodjaca">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="tenderiApp.viewPonude.nazivProizvodjaca">Naziv Proizvodjaca</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <th scope="col" jhiSortBy="zasticeniNaziv">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="tenderiApp.viewPonude.zasticeniNaziv">Zasticeni Naziv</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <th scope="col" jhiSortBy="sifraPonudjaca">-->
+<!--            <div class="d-flex">-->
+<!--              <span >Sifra Ponudjaca</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <th scope="col" jhiSortBy="karakteristika">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="tenderiApp.viewPonude.karakteristika">Karakteristika</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <th scope="col"></th>-->
+<!--          <th scope="col" jhiSortBy="rokIsporuke">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="tenderiApp.viewPonude.rokIsporuke">Rok Isporuke</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--&lt;!&ndash;          <th scope="col" jhiSortBy="ponudjenaVrijednost">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="d-flex">&ndash;&gt;-->
+<!--&lt;!&ndash;              <span jhiTranslate="tenderiApp.viewPonude.ponudjenaVrijednost">Ponudjena Vrijednost</span>&ndash;&gt;-->
+<!--&lt;!&ndash;              <fa-icon class="p-1" icon="sort"></fa-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </th>&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <th scope="col" jhiSortBy="jedinicnaCijena">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="d-flex">&ndash;&gt;-->
+<!--&lt;!&ndash;              <span jhiTranslate="tenderiApp.viewPonude.jedinicnaCijena">Jedinicna Cijena</span>&ndash;&gt;-->
+<!--&lt;!&ndash;              <fa-icon class="p-1" icon="sort"></fa-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--          </th>-->
+
+<!--          <th scope="col" jhiSortBy="nazivPonudjaca">-->
+<!--            <div class="d-flex">-->
+<!--              <span jhiTranslate="tenderiApp.viewPonude.nazivPonudjaca">Naziv Ponudjaca</span>-->
+<!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+<!--            </div>-->
+<!--          </th>-->
+
+<!--        </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--        <tr *ngFor="let viewPonude of viewPonudes; trackBy: trackId" data-cy="entityTable">-->
+<!--          <td>-->
+<!--            <a [routerLink]="['/view-ponude', viewPonude.id, 'view']">{{ viewPonude.id }}</a>-->
+<!--          </td>-->
+<!--          <td>{{ viewPonude.sifraPostupka }}</td>-->
+<!--          <td>{{ viewPonude.sifraPonude }}</td>-->
+<!--          <td>{{ viewPonude.brojPartije }}</td>-->
+<!--          <td>{{ viewPonude.nazivProizvodjaca }}</td>-->
+<!--          <td>{{ viewPonude.zasticeniNaziv }}</td>-->
+<!--          <td>{{ viewPonude.sifraPonudjaca }}</td>-->
+<!--          <td>{{ viewPonude.karakteristika }}</td>-->
+<!--          <td>{{ viewPonude.rokIsporuke }}</td>-->
+<!--          <td>{{ viewPonude.ponudjenaVrijednost }}</td>-->
+<!--          <td>{{ viewPonude.jedinicnaCijena }}</td>-->
+
+<!--           <td class="text-end">-->
+<!--            <div class="btn-group">-->
+
+<!--              <button type="submit" (click)="delete(viewPonude)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">-->
+<!--                <fa-icon icon="times"></fa-icon>-->
+<!--                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>-->
+<!--              </button>-->
+<!--            </div>-->
+<!--           </td>-->
+<!--        </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->
+<!--          <td class="text-end">-->
+<!--            <div class="btn-group">-->
+<!--              <button type="submit"  class="btn btn-info btn-sm" data-cy="entityDetailsButton">-->
+<!--                <fa-icon icon="eye"></fa-icon>-->
+<!--                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>-->
+<!--              </button>-->
+
+<!--              <button type="submit"  class="btn btn-primary btn-sm" data-cy="entityEditButton">-->
+<!--                <fa-icon icon="pencil-alt"></fa-icon>-->
+<!--                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Izmeni</span>-->
+<!--              </button>-->
+
+<!--              <button type="submit"  class="btn btn-danger btn-sm" data-cy="entityDeleteButton">-->
+<!--                <fa-icon icon="times"></fa-icon>-->
+<!--                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->
 <div>
   <h2 id="page-heading" data-cy="ViewPonudeHeading">
     <span jhiTranslate="tenderiApp.viewPonude.home.title">View Ponudes</span>
@@ -86,15 +251,21 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="selected">
+          <!--        <th scope="col" jhiSortBy="selected">-->
+          <!--          <div class="d-flex">-->
+          <!--            <span jhiTranslate="tenderiApp.viewPonude.selected">Selected</span>-->
+          <!--            <fa-icon class="p-1" icon="sort"></fa-icon>-->
+          <!--          </div>-->
+          <!--        </th>-->
+          <th scope="col" jhiSortBy="nazivPonudjaca">
             <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.selected">Selected</span>
+              <span jhiTranslate="tenderiApp.viewPonude.nazivPonudjaca">Naziv Ponudjaca</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="nazivPonudjaca">
             <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.nazivPonudjaca">Naziv Ponudjaca</span>
+              <span>Sifra Ponudjaca</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -120,8 +291,9 @@
           <td>{{ viewPonude.ponudjenaVrijednost }}</td>
           <td>{{ viewPonude.rokIsporuke }}</td>
           <td>{{ viewPonude.jedinicnaCijena }}</td>
-          <td>{{ viewPonude.selected }}</td>
+          <!--        <td>{{ viewPonude.selected }}</td>-->
           <td>{{ viewPonude.nazivPonudjaca }}</td>
+          <td>{{ viewPonude.sifraPonudjaca }}</td>
           <td>{{ viewPonude.karakteristika }}</td>
           <td class="text-end">
             <div class="btn-group">
@@ -136,10 +308,25 @@
               </button>
 
               <button
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
                 type="submit"
-                [routerLink]="['/ponude', viewPonude.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
+                class="btn btn-primary"
+                (click)="
+                  update(
+                    viewPonude.id,
+                    viewPonude.sifraPostupka,
+                    viewPonude.sifraPonude,
+                    viewPonude.brojPartije,
+                    viewPonude.sifraPonudjaca,
+                    viewPonude.nazivProizvodjaca,
+                    viewPonude.karakteristika,
+                    viewPonude.zasticeniNaziv,
+                    viewPonude.ponudjenaVrijednost,
+                    viewPonude.jedinicnaCijena,
+                    viewPonude.selected,
+                    viewPonude.rokIsporuke
+                  )
+                "
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Izmeni</span>

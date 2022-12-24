@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IPonude, NewPonude } from '../ponude.model';
+import { IPonude, Ponude } from '../ponude.model';
 
 export type PartialUpdatePonude = Partial<IPonude> & Pick<IPonude, 'id'>;
 
@@ -18,7 +18,7 @@ export class PonudeService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(ponude: NewPonude): Observable<EntityResponseType> {
+  create(ponude: IPonude | (Omit<IPonude, 'id'> & { id: null })): Observable<EntityResponseType> {
     return this.http.post<IPonude>(this.resourceUrl, ponude, { observe: 'response' });
   }
 

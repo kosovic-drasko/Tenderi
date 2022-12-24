@@ -203,7 +203,7 @@ public class ViewPonudeResource {
 
     @GetMapping("/ponude-ponudjaci")
     public ResponseEntity<?> getPonudePonudjaci() {
-        Optional<? extends List<?>> ponude = Optional.ofNullable(viewPonudeRepository.PonudePonudjaci());
+        Optional<? extends List<ViewPonude>> ponude = Optional.ofNullable(viewPonudeRepository.PonudePonudjaci());
         return ResponseUtil.wrapOrNotFound(ponude);
     }
 }

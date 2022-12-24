@@ -51,7 +51,7 @@
     },
     {
       "fieldName": "karakteristika",
-      "fieldType": "String"
+                        "fieldType": "String"
     }
   ],
   "fluentMethods": true,
