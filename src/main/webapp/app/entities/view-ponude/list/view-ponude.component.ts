@@ -6,12 +6,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IViewPonude } from '../view-ponude.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { EntityArrayResponseType, ViewPonudeService } from '../service/view-ponude.service';
-import { ViewPonudeDeleteDialogComponent } from '../delete/view-ponude-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
 import { PonudeService } from '../../ponude/service/ponude.service';
 import { PonudeDeleteDialogComponent } from '../../ponude/delete/ponude-delete-dialog.component';
 import { IPonude } from '../../ponude/ponude.model';
 import { PonudeUpdateComponent } from '../../ponude/update/ponude-update.component';
+import { TableUtil } from '../../../tableUtil';
 
 @Component({
   selector: 'jhi-view-ponude',
@@ -20,7 +20,7 @@ import { PonudeUpdateComponent } from '../../ponude/update/ponude-update.compone
 export class ViewPonudeComponent implements OnInit {
   viewPonudes?: IViewPonude[];
   isLoading = false;
-  sifraPonude?: number;
+  sifraPonude?: number = 200;
   predicate = 'id';
   ascending = true;
 
@@ -57,7 +57,7 @@ export class ViewPonudeComponent implements OnInit {
     });
   }
   loadSifraPonude(): void {
-    this.queryBackendSifraPonude().subscribe({
+    this.loadPonude().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
       },
@@ -72,6 +72,13 @@ export class ViewPonudeComponent implements OnInit {
     return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
       tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
       switchMap(() => this.queryBackend(this.predicate, this.ascending))
+    );
+  }
+
+  protected loadPonude(): Observable<EntityArrayResponseType> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendPonude(this.predicate, this.ascending))
     );
   }
 
@@ -94,18 +101,17 @@ export class ViewPonudeComponent implements OnInit {
     return data ?? [];
   }
 
+  protected queryBackendPonude(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+    const queryObject = { 'sifraPonude.in': this.sifraPonude, sort: this.getSortQueryParam(predicate, ascending) };
+    return this.viewPonudeService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
   protected queryBackend(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
     this.isLoading = true;
     const queryObject = {
       sort: this.getSortQueryParam(predicate, ascending),
     };
     return this.viewPonudeService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
-  }
-
-  protected queryBackendSifraPonude(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
-    this.isLoading = true;
-    const queryObject = { 'sifraPonude.contains': this.sifraPonude, sort: this.getSortQueryParam(predicate, ascending) };
-    return this.viewPonudeService.query().pipe(tap(() => (this.isLoading = false)));
   }
 
   protected handleNavigation(predicate?: string, ascending?: boolean): void {
@@ -169,5 +175,34 @@ export class ViewPonudeComponent implements OnInit {
     modalRef.closed.subscribe(() => {
       this.load();
     });
+  }
+  exportArray() {
+    const onlyNameAndSymbolArr: {
+      'naziv proizvodjaca': string | null | undefined;
+      'jedinicna cijena': number | null | undefined;
+      'ponudjana vrijednost': number | null | undefined;
+      'rok isporuke': number | null | undefined;
+      'naziv ponudjaca': string | null | undefined;
+      'sifra ponude': number | null | undefined;
+      'sifra postupka': number | null | undefined;
+      'zasticeni naziv': string | null | undefined;
+      'broj partije': number | null | undefined;
+    }[] = this.viewPonudes.map(x => ({
+      'sifra postupka': x.sifraPostupka,
+      'broj partije': x.brojPartije,
+      'sifra ponude': x.sifraPonude,
+      'zasticeni naziv': x.zasticeniNaziv,
+      'naziv proizvodjaca': x.nazivProizvodjaca,
+      'naziv ponudjaca': x.nazivPonudjaca,
+      'ponudjana vrijednost': x.ponudjenaVrijednost,
+      'jedinicna cijena': x.jedinicnaCijena,
+      'rok isporuke': x.rokIsporuke,
+      'karakteristike ponude': x.karakteristika,
+    }));
+    TableUtil.exportArrayToExcel(onlyNameAndSymbolArr, 'Ponude');
+  }
+
+  exportTable() {
+    TableUtil.exportTableToExcel('ExampleTable');
   }
 }

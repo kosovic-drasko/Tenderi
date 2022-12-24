@@ -3,11 +3,14 @@
     <span jhiTranslate="tenderiApp.viewPonude.home.title">View Ponudes</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="exportTable()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="tenderiApp.viewPonude.home.refreshListLabel">Refresh list</span>
       </button>
-
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Excel</span>
+      </button>
       <button
         id="jh-create-entity"
         data-cy="entityCreateButton"
