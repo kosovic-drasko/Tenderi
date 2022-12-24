@@ -20,7 +20,7 @@ import { TableUtil } from '../../../tableUtil';
 export class ViewPonudeComponent implements OnInit {
   viewPonudes?: IViewPonude[];
   isLoading = false;
-  sifraPonude?: number = 200;
+  sifraPonude?: number;
   predicate = 'id';
   ascending = true;
 
