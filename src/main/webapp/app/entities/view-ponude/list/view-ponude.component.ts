@@ -20,7 +20,7 @@ import { PonudeUpdateComponent } from '../../ponude/update/ponude-update.compone
 export class ViewPonudeComponent implements OnInit {
   viewPonudes?: IViewPonude[];
   isLoading = false;
-
+  sifraPonude?: number;
   predicate = 'id';
   ascending = true;
 
@@ -51,6 +51,13 @@ export class ViewPonudeComponent implements OnInit {
 
   load(): void {
     this.loadFromBackendWithRouteInformations().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccess(res);
+      },
+    });
+  }
+  loadSifraPonude(): void {
+    this.queryBackendSifraPonude().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
       },
@@ -93,6 +100,12 @@ export class ViewPonudeComponent implements OnInit {
       sort: this.getSortQueryParam(predicate, ascending),
     };
     return this.viewPonudeService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+
+  protected queryBackendSifraPonude(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+    const queryObject = { 'sifraPonude.contains': this.sifraPonude, sort: this.getSortQueryParam(predicate, ascending) };
+    return this.viewPonudeService.query().pipe(tap(() => (this.isLoading = false)));
   }
 
   protected handleNavigation(predicate?: string, ascending?: boolean): void {
