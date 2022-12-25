@@ -6,6 +6,7 @@ import { IPrvorangirani } from '../prvorangirani.model';
 import { ASC, DESC, SORT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { EntityArrayResponseType, PrvorangiraniService } from '../service/prvorangirani.service';
 import { SortService } from 'app/shared/sort/sort.service';
+import { TableUtil } from '../../../tableUtil';
 
 @Component({
   selector: 'jhi-prvorangirani',
@@ -95,5 +96,8 @@ export class PrvorangiraniComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+  exportTable() {
+    TableUtil.exportTableToExcel('ExampleTable');
   }
 }
