@@ -8,6 +8,7 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, PonudjaciService } from '../service/ponudjaci.service';
 import { PonudjaciDeleteDialogComponent } from '../delete/ponudjaci-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
+import { PonudjaciUpdateComponent } from '../update/ponudjaci-update.component';
 
 @Component({
   selector: 'jhi-ponudjaci',
@@ -114,5 +115,30 @@ export class PonudjaciComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+
+  update(
+    id?: number,
+    nazivPonudjaca?: string | null,
+    odgovornoLice?: string | null,
+    adresaPonudjaca?: string | null,
+    bankaRacun?: string | null
+  ): void {
+    const modalRef = this.modalService.open(PonudjaciUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.nazivPonudjaca = nazivPonudjaca;
+    modalRef.componentInstance.odgovornoLice = odgovornoLice;
+    modalRef.componentInstance.adresaPonudjaca = adresaPonudjaca;
+    modalRef.componentInstance.bankaRacun = bankaRacun;
+
+    modalRef.closed.subscribe(() => {
+      this.load();
+    });
+  }
+  add(): void {
+    const modalRef = this.modalService.open(PonudjaciUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.closed.subscribe(() => {
+      this.load();
+    });
   }
 }

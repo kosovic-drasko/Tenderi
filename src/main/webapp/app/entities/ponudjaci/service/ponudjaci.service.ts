@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IPonudjaci, NewPonudjaci } from '../ponudjaci.model';
+import { IPonudjaci } from '../ponudjaci.model';
 
 export type PartialUpdatePonudjaci = Partial<IPonudjaci> & Pick<IPonudjaci, 'id'>;
 

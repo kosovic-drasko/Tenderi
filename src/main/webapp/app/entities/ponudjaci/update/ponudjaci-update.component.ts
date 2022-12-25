@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { PonudjaciFormService, PonudjaciFormGroup } from './ponudjaci-form.service';
-import { IPonudjaci } from '../ponudjaci.model';
+import { IPonudjaci, Ponudjaci } from '../ponudjaci.model';
 import { PonudjaciService } from '../service/ponudjaci.service';
+import { FormBuilder } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-ponudjaci-update',
@@ -14,33 +15,38 @@ import { PonudjaciService } from '../service/ponudjaci.service';
 })
 export class PonudjaciUpdateComponent implements OnInit {
   isSaving = false;
-  ponudjaci: IPonudjaci | null = null;
-
-  editForm: PonudjaciFormGroup = this.ponudjaciFormService.createPonudjaciFormGroup();
+  @Input() public id: any;
+  @Input() public nazivPonudjaca: any;
+  @Input() public odgovornoLice: any;
+  @Input() public adresaPonudjaca: any;
+  @Input() public bankaRacun: any;
+  editForm = this.fb.group({
+    id: [],
+    nazivPonudjaca: [],
+    odgovornoLice: [],
+    adresaPonudjaca: [],
+    bankaRacun: [],
+  });
 
   constructor(
     protected ponudjaciService: PonudjaciService,
-    protected ponudjaciFormService: PonudjaciFormService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder,
+    protected activeModal: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ ponudjaci }) => {
-      this.ponudjaci = ponudjaci;
-      if (ponudjaci) {
-        this.updateForm(ponudjaci);
-      }
-    });
+    this.updateForm();
   }
 
   previousState(): void {
-    window.history.back();
+    this.activeModal.close();
   }
 
   save(): void {
     this.isSaving = true;
-    const ponudjaci = this.ponudjaciFormService.getPonudjaci(this.editForm);
-    if (ponudjaci.id !== null) {
+    const ponudjaci = this.createFromForm();
+    if (ponudjaci.id !== undefined) {
       this.subscribeToSaveResponse(this.ponudjaciService.update(ponudjaci));
     } else {
       this.subscribeToSaveResponse(this.ponudjaciService.create(ponudjaci));
@@ -55,7 +61,7 @@ export class PonudjaciUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    this.activeModal.close();
   }
 
   protected onSaveError(): void {
@@ -66,8 +72,24 @@ export class PonudjaciUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  protected updateForm(ponudjaci: IPonudjaci): void {
-    this.ponudjaci = ponudjaci;
-    this.ponudjaciFormService.resetForm(this.editForm, ponudjaci);
+  protected updateForm(): void {
+    this.editForm.patchValue({
+      id: this.id,
+      nazivPonudjaca: this.nazivPonudjaca,
+      odgovornoLice: this.odgovornoLice,
+      adresaPonudjaca: this.adresaPonudjaca,
+      bankaRacun: this.bankaRacun,
+    });
+  }
+
+  protected createFromForm(): IPonudjaci {
+    return {
+      ...new Ponudjaci(),
+      id: this.editForm.get(['id'])!.value,
+      nazivPonudjaca: this.editForm.get(['nazivPonudjaca'])!.value,
+      odgovornoLice: this.editForm.get(['odgovornoLice'])!.value,
+      adresaPonudjaca: this.editForm.get(['adresaPonudjaca'])!.value,
+      bankaRacun: this.editForm.get(['bankaRacun'])!.value,
+    };
   }
 }

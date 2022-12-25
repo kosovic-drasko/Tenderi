@@ -1,24 +1,13 @@
 <div>
-  <h2 id="page-heading" data-cy="PonudjaciHeading">
+  <h5 id="page-heading" data-cy="PonudjaciHeading">
     <span jhiTranslate="tenderiApp.ponudjaci.home.title">Ponudjacis</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="tenderiApp.ponudjaci.home.refreshListLabel">Refresh list</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-ponudjaci"
-        [routerLink]="['/ponudjaci/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="tenderiApp.ponudjaci.home.createLabel"> Kreiraj novi Ponudjaci </span>
-      </button>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" (click)="add()">Dodaj</button>
+      </div>
     </div>
-  </h2>
+  </h5>
 
   <jhi-alert-error></jhi-alert-error>
 
@@ -78,24 +67,15 @@
             <div class="btn-group">
               <button
                 type="submit"
-                [routerLink]="['/ponudjaci', ponudjaci.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/ponudjaci', ponudjaci.id, 'edit']"
+                (click)="
+                  update(ponudjaci.id, ponudjaci.nazivPonudjaca, ponudjaci.odgovornoLice, ponudjaci.adresaPonudjaca, ponudjaci.bankaRacun)
+                "
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Izmeni</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
-
               <button type="submit" (click)="delete(ponudjaci)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>
