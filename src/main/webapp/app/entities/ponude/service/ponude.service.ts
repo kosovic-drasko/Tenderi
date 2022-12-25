@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
@@ -15,6 +15,7 @@ export type EntityArrayResponseType = HttpResponse<IPonude[]>;
 @Injectable({ providedIn: 'root' })
 export class PonudeService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/ponudes');
+  public resourceUrlExcelUpload = SERVER_API_URL + 'api/upload';
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -69,5 +70,13 @@ export class PonudeService {
       return [...ponudesToAdd, ...ponudeCollection];
     }
     return ponudeCollection;
+  }
+  UploadExcel(formData: FormData): any {
+    const headers = new HttpHeaders();
+
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.http.post(this.resourceUrlExcelUpload, formData, { headers });
   }
 }

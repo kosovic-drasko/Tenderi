@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -103,6 +104,27 @@ public class SecurityConfiguration {
             .apply(securityConfigurerAdapter());
         return http.build();
         // @formatter:on
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web ->
+            web
+                .ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers("/app/**/*.{js,html}")
+                .antMatchers("/i18n/**")
+                .antMatchers("/content/**")
+                .antMatchers("/swagger-ui/**")
+                .antMatchers("/api/ponude/file")
+                .antMatchers("/api/ponude/file/**")
+                .antMatchers("/api/specifikacije/file/**")
+                .antMatchers("/api/testchat/**")
+                .antMatchers("/testchat/**")
+                .antMatchers("/api/uploadfiles/specifikacije")
+                .antMatchers("/api/set")
+                .antMatchers("/api/upload")
+                .antMatchers("/test/**");
     }
 
     private JWTConfigurer securityConfigurerAdapter() {

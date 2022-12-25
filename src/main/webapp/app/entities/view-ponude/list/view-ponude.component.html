@@ -4,18 +4,24 @@
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="exportArray()">
-        <span jhiTranslate="tenderiApp.viewPonude.home.refreshListLabel">Excel</span>
+        <span>Excel</span>
       </button>
 
       <button
         id="jh-create-entity"
         data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-view-ponude"
+        class="btn btn-warning jh-create-entity create-view-ponude"
         (click)="add()"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="tenderiApp.viewPonude.home.createLabel"> Kreiraj novi View Ponude </span>
       </button>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" (click)="obrazacExcel()">Napravi</button>
+        <button type="button" class="btn btn-primary" (click)="fileInput.click()">Nadji</button>
+        <button type="button" class="btn btn-primary" (click)="uploadFile()">Unesi</button>
+      </div>
+      <input hidden #fileInput type="file" id="file1" />
     </div>
   </h2>
   <input

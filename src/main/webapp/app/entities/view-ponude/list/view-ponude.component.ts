@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +23,9 @@ export class ViewPonudeComponent implements OnInit {
   sifraPonude?: number;
   predicate = 'id';
   ascending = true;
-
+  brojObrazac?: number = 0;
+  @ViewChild('fileInput') fileInput: any;
+  public resourceUrlExcelDownloadPostupak = SERVER_API_URL + 'api/ponude/file';
   constructor(
     protected viewPonudeService: ViewPonudeService,
     protected activatedRoute: ActivatedRoute,
@@ -201,8 +203,14 @@ export class ViewPonudeComponent implements OnInit {
     }));
     TableUtil.exportArrayToExcel(onlyNameAndSymbolArr, 'Ponude');
   }
-
-  exportTable() {
-    TableUtil.exportTableToExcel('ExampleTable');
+  obrazacExcel(): void {
+    window.location.href = `${this.resourceUrlExcelDownloadPostupak}/${this.brojObrazac}`;
+  }
+  uploadFile(): any {
+    const formData = new FormData();
+    formData.append('files', this.fileInput.nativeElement.files[0]);
+    this.ponudeService.UploadExcel(formData).subscribe(() => {
+      this.load();
+    });
   }
 }
