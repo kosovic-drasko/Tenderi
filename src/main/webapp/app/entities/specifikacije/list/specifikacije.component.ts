@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,18 +8,22 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, SpecifikacijeService } from '../service/specifikacije.service';
 import { SpecifikacijeDeleteDialogComponent } from '../delete/specifikacije-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
+import { TableUtil } from '../../../tableUtil';
+import { SpecifikacijeUpdateComponent } from '../update/specifikacije-update.component';
 
 @Component({
   selector: 'jhi-specifikacije',
   templateUrl: './specifikacije.component.html',
 })
 export class SpecifikacijeComponent implements OnInit {
+  @ViewChild('fileInput') fileInput: any;
+  public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
   specifikacijes?: ISpecifikacije[];
   isLoading = false;
 
   predicate = 'id';
   ascending = true;
-
+  message: string | undefined;
   constructor(
     protected specifikacijeService: SpecifikacijeService,
     protected activatedRoute: ActivatedRoute,
@@ -114,5 +118,73 @@ export class SpecifikacijeComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+
+  uploadFile(): any {
+    const formData = new FormData();
+    formData.append('files', this.fileInput.nativeElement.files[0]);
+
+    this.specifikacijeService.UploadExcel(formData).subscribe((result: { toString: () => string | undefined }) => {
+      this.message = result.toString();
+      this.load();
+    });
+  }
+  exportArray() {
+    const onlyNameAndSymbolArr: Partial<ISpecifikacije>[] = this.specifikacijes.map(x => ({
+      'sifra postupka': x.sifraPostupka,
+      broj_partije: x.brojPartije,
+      atc: x.atc,
+      inn: x.inn,
+      'farmaceutski oblik': x.farmaceutskiOblikLijeka,
+      karakteristika: x.karakteristika,
+      'jacina lijeka': x.jacinaLijeka,
+      'trazena kolicina': x.trazenaKolicina,
+      pakovanje: x.pakovanje,
+      'jedinica mjere': x.jedinicaMjere,
+      'procijenjena vrijednost': x.procijenjenaVrijednost,
+      'jedinicna cijena': x.jedinicnaCijena,
+    }));
+    TableUtil.exportArrayToExcel(onlyNameAndSymbolArr, 'Specifikacija');
+  }
+
+  update(
+    id?: number,
+    sifraPostupka?: number,
+    brojPartije?: number,
+    atc?: string | null,
+    inn?: string | null,
+    farmaceutskiOblikLijeka?: string | null,
+    karakteristika?: string | null,
+    jacinaLijeka?: string | null,
+    trazenaKolicina?: number | null,
+    pakovanje?: string | null,
+    jedinicaMjere?: string | null,
+    procijenjenaVrijednost?: number,
+    jedinicnaCijena?: number
+  ): void {
+    const modalRef = this.modalService.open(SpecifikacijeUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.sifraPostupka = sifraPostupka;
+    modalRef.componentInstance.brojPartije = brojPartije;
+    modalRef.componentInstance.atc = atc;
+    modalRef.componentInstance.inn = inn;
+    modalRef.componentInstance.farmaceutskiOblikLijeka = farmaceutskiOblikLijeka;
+    modalRef.componentInstance.karakteristika = karakteristika;
+    modalRef.componentInstance.jacinaLijeka = jacinaLijeka;
+    modalRef.componentInstance.trazenaKolicina = trazenaKolicina;
+    modalRef.componentInstance.pakovanje = pakovanje;
+    modalRef.componentInstance.jedinicaMjere = jedinicaMjere;
+    modalRef.componentInstance.procijenjenaVrijednost = procijenjenaVrijednost;
+    modalRef.componentInstance.jedinicnaCijena = jedinicnaCijena;
+
+    modalRef.closed.subscribe(() => {
+      this.load();
+    });
+  }
+  add(): void {
+    const modalRef = this.modalService.open(SpecifikacijeUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.closed.subscribe(() => {
+      this.load();
+    });
   }
 }

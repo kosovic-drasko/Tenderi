@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { ISpecifikacije, NewSpecifikacije } from '../specifikacije.model';
+import { ISpecifikacije } from '../specifikacije.model';
 
 export type PartialUpdateSpecifikacije = Partial<ISpecifikacije> & Pick<ISpecifikacije, 'id'>;
 
@@ -15,7 +15,7 @@ export type EntityArrayResponseType = HttpResponse<ISpecifikacije[]>;
 @Injectable({ providedIn: 'root' })
 export class SpecifikacijeService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/specifikacijes');
-
+  public resourceUrlExcelUpload = SERVER_API_URL + 'api/uploadfiles/specifikacije';
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(specifikacije: ISpecifikacije | (Omit<ISpecifikacije, 'id'> & { id: null })): Observable<EntityResponseType> {
@@ -54,7 +54,14 @@ export class SpecifikacijeService {
   compareSpecifikacije(o1: Pick<ISpecifikacije, 'id'> | null, o2: Pick<ISpecifikacije, 'id'> | null): boolean {
     return o1 && o2 ? this.getSpecifikacijeIdentifier(o1) === this.getSpecifikacijeIdentifier(o2) : o1 === o2;
   }
+  UploadExcel(formData: FormData): any {
+    const headers = new HttpHeaders();
 
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.http.post(this.resourceUrlExcelUpload, formData, { headers });
+  }
   addSpecifikacijeToCollectionIfMissing<Type extends Pick<ISpecifikacije, 'id'>>(
     specifikacijeCollection: Type[],
     ...specifikacijesToCheck: (Type | null | undefined)[]

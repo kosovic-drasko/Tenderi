@@ -1,5 +1,5 @@
 <div>
-  <h2 id="page-heading" data-cy="ViewPonudeHeading">
+  <h4 id="page-heading" data-cy="ViewPonudeHeading">
     <span jhiTranslate="tenderiApp.viewPonude.home.title">View Ponudes</span>
 
     <div class="d-flex justify-content-end">
@@ -23,7 +23,7 @@
       </div>
       <input hidden #fileInput type="file" id="file1" />
     </div>
-  </h2>
+  </h4>
   <input
     type="text"
     class="form-control"
@@ -145,16 +145,6 @@
           <td>{{ viewPonude.karakteristika }}</td>
           <td class="text-end">
             <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/view-ponude', viewPonude.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
-              </button>
-
               <button
                 *jhiHasAnyAuthority="'ROLE_ADMIN'"
                 type="submit"

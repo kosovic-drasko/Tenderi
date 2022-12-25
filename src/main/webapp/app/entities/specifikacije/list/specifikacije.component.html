@@ -1,165 +1,173 @@
 <div>
   <h2 id="page-heading" data-cy="SpecifikacijeHeading">
-    <span jhiTranslate="tenderiApp.specifikacije.home.title">Specifikacijes</span>
+    <!--    <span jhiTranslate="tenderiApp.specifikacije.home.title">Specifikacijes</span>-->
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="tenderiApp.specifikacije.home.refreshListLabel">Refresh list</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-specifikacije"
-        [routerLink]="['/specifikacije/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="tenderiApp.specifikacije.home.createLabel"> Kreiraj novi Specifikacije </span>
-      </button>
+      <!--      <button-->
+      <!--        id="jh-create-entity"-->
+      <!--        data-cy="entityCreateButton"-->
+      <!--        class="btn btn-primary jh-create-entity create-specifikacije"-->
+      <!--        [routerLink]="['/specifikacije/new']"-->
+      <!--      >-->
+      <!--        <fa-icon icon="plus"></fa-icon>-->
+      <!--        <span jhiTranslate="tenderiApp.specifikacije.home.createLabel"> Kreiraj novi Specifikacije </span>-->
+      <!--      </button>-->
     </div>
   </h2>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="specifikacijes?.length === 0">
-    <span jhiTranslate="tenderiApp.specifikacije.home.notFound">No Specifikacijes found</span>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary" (click)="add()">Dodaj</button>
+    <button type="button" class="btn btn-primary">Napravi</button>
+    <button type="button" class="btn btn-primary" (click)="fileInput.click()">Nadji</button>
+    <button type="button" class="btn btn-primary" (click)="uploadFile()">Unesi</button>
+    <button type="button" class="btn btn-primary" (click)="exportArray()">Excel</button>
   </div>
+  <input hidden #fileInput type="file" id="file1" />
+</div>
+<jhi-alert-error></jhi-alert-error>
 
-  <div class="table-responsive table-entities" id="entities" *ngIf="specifikacijes && specifikacijes.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="sifraPostupka">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.sifraPostupka">Sifra Postupka</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="brojPartije">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.brojPartije">Broj Partije</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="atc">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.atc">Atc</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="inn">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.inn">Inn</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="farmaceutskiOblikLijeka">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.farmaceutskiOblikLijeka">Farmaceutski Oblik Lijeka</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="jacinaLijeka">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.jacinaLijeka">Jacina Lijeka</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="trazenaKolicina">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.trazenaKolicina">Trazena Kolicina</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="pakovanje">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.pakovanje">Pakovanje</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="jedinicaMjere">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.jedinicaMjere">Jedinica Mjere</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="procijenjenaVrijednost">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.procijenjenaVrijednost">Procijenjena Vrijednost</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="jedinicnaCijena">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.jedinicnaCijena">Jedinicna Cijena</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="karakteristika">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.specifikacije.karakteristika">Karakteristika</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let specifikacije of specifikacijes; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/specifikacije', specifikacije.id, 'view']">{{ specifikacije.id }}</a>
-          </td>
-          <td>{{ specifikacije.sifraPostupka }}</td>
-          <td>{{ specifikacije.brojPartije }}</td>
-          <td>{{ specifikacije.atc }}</td>
-          <td>{{ specifikacije.inn }}</td>
-          <td>{{ specifikacije.farmaceutskiOblikLijeka }}</td>
-          <td>{{ specifikacije.jacinaLijeka }}</td>
-          <td>{{ specifikacije.trazenaKolicina }}</td>
-          <td>{{ specifikacije.pakovanje }}</td>
-          <td>{{ specifikacije.jedinicaMjere }}</td>
-          <td>{{ specifikacije.procijenjenaVrijednost }}</td>
-          <td>{{ specifikacije.jedinicnaCijena }}</td>
-          <td>{{ specifikacije.karakteristika }}</td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/specifikacije', specifikacije.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
-              </button>
+<jhi-alert></jhi-alert>
 
-              <button
-                type="submit"
-                [routerLink]="['/specifikacije', specifikacije.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Izmeni</span>
-              </button>
+<div class="alert alert-warning" id="no-result" *ngIf="specifikacijes?.length === 0">
+  <span jhiTranslate="tenderiApp.specifikacije.home.notFound">No Specifikacijes found</span>
+</div>
 
-              <button type="submit" (click)="delete(specifikacije)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="table-responsive table-entities" id="entities" *ngIf="specifikacijes && specifikacijes.length > 0">
+  <table class="table table-striped" aria-describedby="page-heading">
+    <thead>
+      <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+        <th scope="col" jhiSortBy="id">
+          <div class="d-flex">
+            <span jhiTranslate="global.field.id">ID</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="sifraPostupka">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.sifraPostupka">Sifra Postupka</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="brojPartije">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.brojPartije">Broj Partije</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="atc">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.atc">Atc</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="inn">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.inn">Inn</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="farmaceutskiOblikLijeka">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.farmaceutskiOblikLijeka">Farmaceutski Oblik Lijeka</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="jacinaLijeka">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.jacinaLijeka">Jacina Lijeka</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="trazenaKolicina">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.trazenaKolicina">Trazena Kolicina</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="pakovanje">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.pakovanje">Pakovanje</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="jedinicaMjere">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.jedinicaMjere">Jedinica Mjere</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="procijenjenaVrijednost">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.procijenjenaVrijednost">Procijenjena Vrijednost</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="jedinicnaCijena">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.jedinicnaCijena">Jedinicna Cijena</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="karakteristika">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.specifikacije.karakteristika">Karakteristika</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let specifikacije of specifikacijes; trackBy: trackId" data-cy="entityTable">
+        <td>
+          <a [routerLink]="['/specifikacije', specifikacije.id, 'view']">{{ specifikacije.id }}</a>
+        </td>
+        <td>{{ specifikacije.sifraPostupka }}</td>
+        <td>{{ specifikacije.brojPartije }}</td>
+        <td>{{ specifikacije.atc }}</td>
+        <td>{{ specifikacije.inn }}</td>
+        <td>{{ specifikacije.farmaceutskiOblikLijeka }}</td>
+        <td>{{ specifikacije.jacinaLijeka }}</td>
+        <td>{{ specifikacije.trazenaKolicina }}</td>
+        <td>{{ specifikacije.pakovanje }}</td>
+        <td>{{ specifikacije.jedinicaMjere }}</td>
+        <td>{{ specifikacije.procijenjenaVrijednost }}</td>
+        <td>{{ specifikacije.jedinicnaCijena }}</td>
+        <td>{{ specifikacije.karakteristika }}</td>
+        <td class="text-end">
+          <div class="btn-group">
+            <button
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              type="submit"
+              (click)="
+                update(
+                  specifikacije.id,
+                  specifikacije.sifraPostupka,
+                  specifikacije.brojPartije,
+                  specifikacije.atc,
+                  specifikacije.inn,
+                  specifikacije.farmaceutskiOblikLijeka,
+                  specifikacije.karakteristika,
+                  specifikacije.jacinaLijeka,
+                  specifikacije.trazenaKolicina,
+                  specifikacije.pakovanje,
+                  specifikacije.jedinicaMjere,
+                  specifikacije.procijenjenaVrijednost,
+                  specifikacije.jedinicnaCijena
+                )
+              "
+              class="btn btn-primary btn-sm"
+              data-cy="entityEditButton"
+            >
+              <fa-icon icon="pencil-alt"></fa-icon>
+              <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            <button type="submit" (click)="delete(specifikacije)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <fa-icon icon="times"></fa-icon>
+              <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
