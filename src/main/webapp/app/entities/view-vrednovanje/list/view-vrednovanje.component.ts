@@ -6,6 +6,7 @@ import { IViewVrednovanje } from '../view-vrednovanje.model';
 import { ASC, DESC, SORT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { EntityArrayResponseType, ViewVrednovanjeService } from '../service/view-vrednovanje.service';
 import { SortService } from 'app/shared/sort/sort.service';
+import { TableUtil } from '../../../tableUtil';
 
 @Component({
   selector: 'jhi-view-vrednovanje',
@@ -95,5 +96,8 @@ export class ViewVrednovanjeComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+  exportTable() {
+    TableUtil.exportTableToExcel('ExampleTable');
   }
 }

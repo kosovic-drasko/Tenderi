@@ -1,24 +1,11 @@
 <div>
-  <h2 id="page-heading" data-cy="PostupciHeading">
+  <h4 id="page-heading" data-cy="PostupciHeading">
     <span jhiTranslate="tenderiApp.postupci.home.title">Postupcis</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="tenderiApp.postupci.home.refreshListLabel">Refresh list</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-postupci"
-        [routerLink]="['/postupci/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="tenderiApp.postupci.home.createLabel"> Kreiraj novi Postupci </span>
-      </button>
+      <button type="button" class="btn btn-primary" (click)="add()">Dodaj</button>
     </div>
-  </h2>
+  </h4>
 
   <jhi-alert-error></jhi-alert-error>
 
@@ -105,23 +92,26 @@
           <td class="text-end">
             <div class="btn-group">
               <button
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
                 type="submit"
-                [routerLink]="['/postupci', postupci.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/postupci', postupci.id, 'edit']"
+                (click)="
+                  update(
+                    postupci.id,
+                    postupci.sifraPostupka,
+                    postupci.brojTendera,
+                    postupci.opisPostupka,
+                    postupci.vrstaPostupka,
+                    postupci.datumObjave,
+                    postupci.datumOtvaranja,
+                    postupci.kriterijumCijena,
+                    postupci.drugiKriterijum
+                  )
+                "
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Izmeni</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(postupci)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">

@@ -8,18 +8,16 @@ import { isPresent } from 'app/core/util/operators';
 import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IPostupci, NewPostupci } from '../postupci.model';
+import { IPostupci } from '../postupci.model';
 
 export type PartialUpdatePostupci = Partial<IPostupci> & Pick<IPostupci, 'id'>;
 
-type RestOf<T extends IPostupci | NewPostupci> = Omit<T, 'datumObjave' | 'datumOtvaranja'> & {
+type RestOf<T extends IPostupci> = Omit<T, 'datumObjave' | 'datumOtvaranja'> & {
   datumObjave?: string | null;
   datumOtvaranja?: string | null;
 };
 
 export type RestPostupci = RestOf<IPostupci>;
-
-export type NewRestPostupci = RestOf<NewPostupci>;
 
 export type PartialUpdateRestPostupci = RestOf<PartialUpdatePostupci>;
 
@@ -98,7 +96,7 @@ export class PostupciService {
     return postupciCollection;
   }
 
-  protected convertDateFromClient<T extends IPostupci | NewPostupci | PartialUpdatePostupci>(postupci: T): RestOf<T> {
+  protected convertDateFromClient<T extends IPostupci | PartialUpdatePostupci>(postupci: T): RestOf<T> {
     return {
       ...postupci,
       datumObjave: postupci.datumObjave?.format(DATE_FORMAT) ?? null,

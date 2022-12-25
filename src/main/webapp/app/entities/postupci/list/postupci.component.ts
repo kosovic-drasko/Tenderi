@@ -8,6 +8,8 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, PostupciService } from '../service/postupci.service';
 import { PostupciDeleteDialogComponent } from '../delete/postupci-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
+import { PostupciUpdateComponent } from '../update/postupci-update.component';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'jhi-postupci',
@@ -114,5 +116,39 @@ export class PostupciComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+  update(
+    id?: number,
+    sifraPostupka?: number,
+    brojTendera?: string | null,
+    opisPostupka?: string,
+    vrstaPostupka?: string,
+    datumObjave?: dayjs.Dayjs | null,
+    datumOtvaranja?: dayjs.Dayjs | null,
+    kriterijumCijena?: number,
+    drugiKriterijum?: number
+  ): void {
+    const modalRef = this.modalService.open(PostupciUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.sifraPostupka = sifraPostupka;
+    modalRef.componentInstance.brojTendera = brojTendera;
+    modalRef.componentInstance.opisPostupka = opisPostupka;
+    modalRef.componentInstance.vrstaPostupka = vrstaPostupka;
+
+    modalRef.componentInstance.datumObjave = datumObjave;
+    modalRef.componentInstance.datumOtvaranja = datumOtvaranja;
+    modalRef.componentInstance.kriterijumCijena = kriterijumCijena;
+    modalRef.componentInstance.drugiKriterijum = drugiKriterijum;
+
+    modalRef.closed.subscribe(() => {
+      this.load();
+    });
+  }
+
+  add(): void {
+    const modalRef = this.modalService.open(PostupciUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.closed.subscribe(() => {
+      this.load();
+    });
   }
 }
