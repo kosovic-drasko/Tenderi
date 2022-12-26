@@ -36,7 +36,12 @@ export class SpecifikacijeComponent implements OnInit {
   trackId = (_index: number, item: ISpecifikacije): number => this.specifikacijeService.getSpecifikacijeIdentifier(item);
 
   ngOnInit(): void {
-    this.load();
+    if (this.postupak !== undefined) {
+      this.loadSifraPostupka();
+    } else {
+      this.load();
+      console.log('Postupak je >>>>>>>>', this.postupak);
+    }
   }
 
   delete(specifikacije: ISpecifikacije): void {
@@ -62,6 +67,13 @@ export class SpecifikacijeComponent implements OnInit {
       },
     });
   }
+  loadSifraPostupka(): void {
+    this.loadFromBackendWithRouteInformationsPostupak().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccess(res);
+      },
+    });
+  }
 
   navigateToWithComponentValues(): void {
     this.handleNavigation(this.predicate, this.ascending);
@@ -71,6 +83,12 @@ export class SpecifikacijeComponent implements OnInit {
     return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
       tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
       switchMap(() => this.queryBackend(this.predicate, this.ascending))
+    );
+  }
+  protected loadFromBackendWithRouteInformationsPostupak(): Observable<EntityArrayResponseType> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendPostupak(this.predicate, this.ascending))
     );
   }
 
@@ -98,6 +116,11 @@ export class SpecifikacijeComponent implements OnInit {
     const queryObject = {
       sort: this.getSortQueryParam(predicate, ascending),
     };
+    return this.specifikacijeService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+  protected queryBackendPostupak(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+    const queryObject = { 'sifraPostupka.in': this.postupak, sort: this.getSortQueryParam(predicate, ascending) };
     return this.specifikacijeService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 

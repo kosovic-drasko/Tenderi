@@ -13,6 +13,7 @@ export class TenderiHomeComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.sifra = params['sifra'];
+      console.log('Postupak je >>>>>>>>', this.sifra);
     });
   }
 }

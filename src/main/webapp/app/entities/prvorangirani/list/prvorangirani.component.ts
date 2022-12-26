@@ -27,9 +27,10 @@ export class PrvorangiraniComponent implements OnInit {
   ) {}
 
   trackId = (_index: number, item: IPrvorangirani): number => this.prvorangiraniService.getPrvorangiraniIdentifier(item);
-
-  ngOnInit(): void {
-    this.load();
+  protected queryBackendPostupak(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+    const queryObject = { 'sifraPostupka.in': this.postupak, sort: this.getSortQueryParam(predicate, ascending) };
+    return this.prvorangiraniService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
   load(): void {
@@ -39,7 +40,19 @@ export class PrvorangiraniComponent implements OnInit {
       },
     });
   }
-
+  loadSifraPostupka(): void {
+    this.loadFromBackendWithRouteInformationsPostupak().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccess(res);
+      },
+    });
+  }
+  protected loadFromBackendWithRouteInformationsPostupak(): Observable<EntityArrayResponseType> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendPostupak(this.predicate, this.ascending))
+    );
+  }
   navigateToWithComponentValues(): void {
     this.handleNavigation(this.predicate, this.ascending);
   }
@@ -99,5 +112,13 @@ export class PrvorangiraniComponent implements OnInit {
   }
   exportTable() {
     TableUtil.exportTableToExcel('ExampleTable');
+  }
+  ngOnInit(): void {
+    if (this.postupak !== undefined) {
+      this.loadSifraPostupka();
+    } else {
+      this.load();
+      console.log('Postupak je >>>>>>>>', this.postupak);
+    }
   }
 }

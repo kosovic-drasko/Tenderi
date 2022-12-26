@@ -12,6 +12,7 @@ import { PonudeDeleteDialogComponent } from '../../ponude/delete/ponude-delete-d
 import { IPonude } from '../../ponude/ponude.model';
 import { PonudeUpdateComponent } from '../../ponude/update/ponude-update.component';
 import { TableUtil } from '../../../tableUtil';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-view-ponude',
@@ -25,6 +26,7 @@ export class ViewPonudeComponent implements OnInit {
   ascending = true;
   brojObrazac?: number = 0;
   ponudjaci?: [];
+  postupak1: number = 2;
   @Input() postupak: any;
   @ViewChild('fileInput') fileInput: any;
   public resourceUrlExcelDownloadPostupak = SERVER_API_URL + 'api/ponude/file';
@@ -35,13 +37,11 @@ export class ViewPonudeComponent implements OnInit {
     protected sortService: SortService,
     protected modalService: NgbModal,
     protected ponudeService: PonudeService
-  ) {}
+  ) {
+    console.log('Postupak je >>>>>>>>', this.postupak);
+  }
 
   trackId = (_index: number, item: IViewPonude): number => this.viewPonudeService.getViewPonudeIdentifier(item);
-
-  ngOnInit(): void {
-    this.load();
-  }
 
   delete(ponude: IPonude): void {
     const modalRef = this.modalService.open(PonudeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
@@ -57,11 +57,19 @@ export class ViewPonudeComponent implements OnInit {
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        console.log('Postupak je >>>>>>>>', this.postupak);
       },
     });
   }
   loadSifraPonude(): void {
     this.loadPonude().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccess(res);
+      },
+    });
+  }
+  loadSifraPostupka(): void {
+    this.loadPostupak().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
       },
@@ -83,6 +91,12 @@ export class ViewPonudeComponent implements OnInit {
     return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
       tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
       switchMap(() => this.queryBackendPonude(this.predicate, this.ascending))
+    );
+  }
+  protected loadPostupak(): Observable<EntityArrayResponseType> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendPostupak(this.predicate, this.ascending))
     );
   }
 
@@ -108,6 +122,11 @@ export class ViewPonudeComponent implements OnInit {
   protected queryBackendPonude(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
     this.isLoading = true;
     const queryObject = { 'sifraPonude.in': this.sifraPonude, sort: this.getSortQueryParam(predicate, ascending) };
+    return this.viewPonudeService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+  protected queryBackendPostupak(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+    const queryObject = { 'sifraPostupka.in': this.postupak, sort: this.getSortQueryParam(predicate, ascending) };
     return this.viewPonudeService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
   protected queryBackend(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
@@ -167,11 +186,11 @@ export class ViewPonudeComponent implements OnInit {
     modalRef.componentInstance.rokIsporuke = rokIsporuke;
 
     modalRef.closed.subscribe(() => {
-      // if (this.postupak !== undefined) {
-      //   this.loadPageSifraPostupka();
-      // } else {
-      this.load();
-      // }
+      if (this.postupak !== undefined) {
+        this.loadSifraPostupka();
+      } else {
+        this.load();
+      }
     });
   }
   add(): void {
@@ -214,5 +233,26 @@ export class ViewPonudeComponent implements OnInit {
     this.ponudeService.UploadExcel(formData).subscribe(() => {
       this.load();
     });
+  }
+
+  ngOnInit(): void {
+    // this.accountService.identity().subscribe(account => (this.currentAccount = account));
+    if (this.postupak !== undefined) {
+      this.loadSifraPostupka();
+    } else {
+      this.load();
+      console.log('Postupak je >>>>>>>>', this.postupak);
+    }
+    //   if (this.currentAccount?.login == 'sandra') {
+    //     this.sakrij = false;
+    //   } else {
+    //     this.sakrij = true;
+    //   }
+    //   this.accountService
+    //     .getAuthenticationState()
+    //     .pipe(takeUntil(this.destroy$))
+    //     .subscribe(account => (this.currentAccount = account));
+    //   console.log('Nalog je >>>>>>>>', this.currentAccount?.authorities);
+    // }
   }
 }
