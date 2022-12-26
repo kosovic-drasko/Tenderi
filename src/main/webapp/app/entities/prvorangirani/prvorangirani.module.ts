@@ -7,5 +7,6 @@ import { PrvorangiraniRoutingModule } from './route/prvorangirani-routing.module
 @NgModule({
   imports: [SharedModule, PrvorangiraniRoutingModule],
   declarations: [PrvorangiraniComponent, PrvorangiraniDetailComponent],
+  exports: [PrvorangiraniComponent],
 })
 export class PrvorangiraniModule {}

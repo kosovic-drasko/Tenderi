@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, Observable, switchMap, tap } from 'rxjs';
 
@@ -18,7 +18,7 @@ export class PrvorangiraniComponent implements OnInit {
 
   predicate = 'id';
   ascending = true;
-
+  @Input() postupak: any;
   constructor(
     protected prvorangiraniService: PrvorangiraniService,
     protected activatedRoute: ActivatedRoute,

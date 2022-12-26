@@ -1,56 +1,34 @@
-<div>
-  <h2 id="page-heading" data-cy="TenderiHomeHeading">
-    <span jhiTranslate="tenderiApp.tenderiHome.home.title">Tenderi Homes</span>
+<ul ngbNav #nav="ngbNav" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Specikacije</a>
+    <ng-template ngbNavContent>
+      <jhi-specifikacije [postupak]="sifra"></jhi-specifikacije>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Ponude</a>
+    <ng-template ngbNavContent>
+      <jhi-view-ponude [postupak]="sifra"></jhi-view-ponude>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>Vrednovanje</a>
+    <ng-template ngbNavContent>
+      <jhi-vrednovanje [postupak]="sifra"></jhi-vrednovanje>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="4">
+    <a ngbNavLink>Prvorangirani</a>
+    <ng-template ngbNavContent>
+      <jhi-prvorangirani [postupak]="sifra"></jhi-prvorangirani>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="5">
+    <a ngbNavLink>Partije bez ponude</a>
+    <ng-template ngbNavContent>
+      <jhi-hvale-ponude [postupak]="sifra"></jhi-hvale-ponude>
+    </ng-template>
+  </li>
+</ul>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="tenderiApp.tenderiHome.home.refreshListLabel">Refresh list</span>
-      </button>
-    </div>
-  </h2>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="tenderiHomes?.length === 0">
-    <span jhiTranslate="tenderiApp.tenderiHome.home.notFound">No Tenderi Homes found</span>
-  </div>
-
-  <div class="table-responsive table-entities" id="entities" *ngIf="tenderiHomes && tenderiHomes.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let tenderiHome of tenderiHomes; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/tenderi-home', tenderiHome.id, 'view']">{{ tenderiHome.id }}</a>
-          </td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/tenderi-home', tenderiHome.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

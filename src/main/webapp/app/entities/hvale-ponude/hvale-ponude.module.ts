@@ -7,5 +7,6 @@ import { HvalePonudeRoutingModule } from './route/hvale-ponude-routing.module';
 @NgModule({
   imports: [SharedModule, HvalePonudeRoutingModule],
   declarations: [HvalePonudeComponent, HvalePonudeDetailComponent],
+  exports: [HvalePonudeComponent],
 })
 export class HvalePonudeModule {}

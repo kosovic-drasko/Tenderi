@@ -7,5 +7,6 @@ import { VrednovanjeRoutingModule } from './route/vrednovanje-routing.module';
 @NgModule({
   imports: [SharedModule, VrednovanjeRoutingModule],
   declarations: [VrednovanjeComponent, VrednovanjeDetailComponent],
+  exports: [VrednovanjeComponent],
 })
 export class VrednovanjeModule {}

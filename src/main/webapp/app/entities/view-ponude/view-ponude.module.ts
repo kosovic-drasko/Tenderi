@@ -8,5 +8,6 @@ import { ViewPonudeRoutingModule } from './route/view-ponude-routing.module';
 @NgModule({
   imports: [SharedModule, ViewPonudeRoutingModule],
   declarations: [ViewPonudeComponent, ViewPonudeDetailComponent, ViewPonudeDeleteDialogComponent],
+  exports: [ViewPonudeComponent],
 })
 export class ViewPonudeModule {}

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -25,6 +25,7 @@ export class ViewPonudeComponent implements OnInit {
   ascending = true;
   brojObrazac?: number = 0;
   ponudjaci?: [];
+  @Input() postupak: any;
   @ViewChild('fileInput') fileInput: any;
   public resourceUrlExcelDownloadPostupak = SERVER_API_URL + 'api/ponude/file';
   constructor(

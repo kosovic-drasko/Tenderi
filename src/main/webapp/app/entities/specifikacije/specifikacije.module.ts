@@ -9,5 +9,6 @@ import { SpecifikacijeRoutingModule } from './route/specifikacije-routing.module
 @NgModule({
   imports: [SharedModule, SpecifikacijeRoutingModule],
   declarations: [SpecifikacijeComponent, SpecifikacijeDetailComponent, SpecifikacijeUpdateComponent, SpecifikacijeDeleteDialogComponent],
+  exports: [SpecifikacijeComponent],
 })
 export class SpecifikacijeModule {}

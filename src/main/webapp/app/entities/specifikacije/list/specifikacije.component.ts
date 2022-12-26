@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,14 +16,15 @@ import { SpecifikacijeUpdateComponent } from '../update/specifikacije-update.com
   templateUrl: './specifikacije.component.html',
 })
 export class SpecifikacijeComponent implements OnInit {
-  @ViewChild('fileInput') fileInput: any;
   public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
   specifikacijes?: ISpecifikacije[];
   isLoading = false;
-
   predicate = 'id';
   ascending = true;
   message: string | undefined;
+
+  @ViewChild('fileInput') fileInput: any;
+  @Input() postupak: any;
   constructor(
     protected specifikacijeService: SpecifikacijeService,
     protected activatedRoute: ActivatedRoute,
