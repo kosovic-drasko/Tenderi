@@ -22,6 +22,7 @@
           <th scope="col" jhiSortBy="sifraPostupka">
             <div class="d-flex">
               <span jhiTranslate="tenderiApp.postupci.sifraPostupka">Sifra Postupka</span>
+
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -75,8 +76,10 @@
           <td>
             <a [routerLink]="['/postupci', postupci.id, 'view']">{{ postupci.id }}</a>
           </td>
-          <td>{{ postupci.sifraPostupka }}</td>
-          <td>{{ postupci.brojTendera }}</td>
+          <td [routerLink]="['/tenderi-home']" [queryParams]="{ sifra: postupci.sifraPostupka }">
+            {{ postupci.sifraPostupka }}
+          </td>
+          <td [routerLink]="['/tenderi-home']" [queryParams]="{ sifra: postupci.sifraPostupka }">{{ postupci.brojTendera }}</td>
           <td>{{ postupci.opisPostupka }}</td>
           <td>{{ postupci.vrstaPostupka }}</td>
           <td>{{ postupci.datumObjave | formatMediumDate }}</td>
