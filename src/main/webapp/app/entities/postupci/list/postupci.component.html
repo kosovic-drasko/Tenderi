@@ -1,6 +1,6 @@
 <div>
   <h4 id="page-heading" data-cy="PostupciHeading">
-    <span jhiTranslate="tenderiApp.postupci.home.title">Postupcis</span>
+    <!--    <span jhiTranslate="tenderiApp.postupci.home.title">Postupcis</span>-->
 
     <div class="d-flex justify-content-end">
       <button type="button" class="btn btn-primary" (click)="add()">Dodaj</button>
@@ -15,7 +15,7 @@
     <span jhiTranslate="tenderiApp.postupci.home.notFound">No Postupcis found</span>
   </div>
 
-  <div class="table-responsive table-entities" id="entities" *ngIf="postupcis && postupcis.length > 0">
+  <div class="table table-hover" *ngIf="postupcis && postupcis.length > 0">
     <table>
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
@@ -72,11 +72,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="hovers" *ngFor="let postupci of postupcis; trackBy: trackId" data-cy="entityTable">
-          <td [routerLink]="['/tenderi-home']" [queryParams]="{ sifra: postupci.sifraPostupka }">
+        <tr
+          [routerLink]="['/tenderi-home']"
+          [queryParams]="{ sifra: postupci.sifraPostupka }"
+          class="hovers"
+          *ngFor="let postupci of postupcis; trackBy: trackId"
+          data-cy="entityTable"
+        >
+          <td>
             {{ postupci.sifraPostupka }}
           </td>
-          <td [routerLink]="['/tenderi-home']" [queryParams]="{ sifra: postupci.sifraPostupka }">{{ postupci.brojTendera }}</td>
+          <td>{{ postupci.brojTendera }}</td>
           <td>{{ postupci.opisPostupka }}</td>
           <td>{{ postupci.vrstaPostupka }}</td>
           <td>{{ postupci.datumObjave | formatMediumDate }}</td>

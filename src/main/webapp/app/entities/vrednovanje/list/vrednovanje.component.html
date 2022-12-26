@@ -1,146 +1,140 @@
 <div>
-  <h5 id="page-heading" data-cy="VrednovanjeHeading">
-    <span jhiTranslate="tenderiApp.vrednovanje.home.title">Vrednovanjes</span>
-
-    <div class="d-flex justify-content-end">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary" (click)="exportTable()">Excel</button>
-      </div>
-    </div>
-  </h5>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="vrednovanjes?.length === 0">
-    <span jhiTranslate="tenderiApp.vrednovanje.home.notFound">No Vrednovanjes found</span>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary" (click)="exportTable()">Excel</button>
   </div>
+  <input hidden #fileInput type="file" id="file1" />
+</div>
+<jhi-alert-error></jhi-alert-error>
 
-  <div class="table-responsive table-entities" id="entities" *ngIf="vrednovanjes && vrednovanjes.length > 0">
-    <table id="ExampleTable" class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="sifraPostupka">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.sifraPostupka">Sifra Postupka</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="sifraPonude">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.sifraPonude">Sifra Ponude</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="brojPartije">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.brojPartije">Broj Partije</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="nazivProizvodjaca">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.nazivProizvodjaca">Naziv Proizvodjaca</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="zasticeniNaziv">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.zasticeniNaziv">Zasticeni Naziv</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="ponudjenaVrijednost">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.ponudjenaVrijednost">Ponudjena Vrijednost</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="rokIsporuke">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.rokIsporuke">Rok Isporuke</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="jedinicnaCijena">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.jedinicnaCijena">Jedinicna Cijena</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="nazivPonudjaca">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.nazivPonudjaca">Naziv Ponudjaca</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="atc">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.atc">Atc</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="trazenaKolicina">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.trazenaKolicina">Trazena Kolicina</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="procijenjenaVrijednost">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.procijenjenaVrijednost">Procijenjena Vrijednost</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="vrstaPostupka">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.vrstaPostupka">Vrsta Postupka</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="bodCijena">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.bodCijena">Bod Cijena</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="bodRok">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.bodRok">Bod Rok</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="bodUkupno">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.vrednovanje.bodUkupno">Bod Ukupno</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let vrednovanje of vrednovanjes; trackBy: trackId" data-cy="entityTable">
-          <td>{{ vrednovanje.sifraPostupka }}</td>
-          <td>{{ vrednovanje.sifraPonude }}</td>
-          <td>{{ vrednovanje.brojPartije }}</td>
-          <td>{{ vrednovanje.nazivProizvodjaca }}</td>
-          <td>{{ vrednovanje.zasticeniNaziv }}</td>
-          <td>{{ vrednovanje.ponudjenaVrijednost }}</td>
-          <td>{{ vrednovanje.rokIsporuke }}</td>
-          <td>{{ vrednovanje.jedinicnaCijena }}</td>
-          <td>{{ vrednovanje.nazivPonudjaca }}</td>
-          <td>{{ vrednovanje.atc }}</td>
-          <td>{{ vrednovanje.trazenaKolicina }}</td>
-          <td>{{ vrednovanje.procijenjenaVrijednost }}</td>
-          <td>{{ vrednovanje.vrstaPostupka }}</td>
-          <td>{{ vrednovanje.bodCijena }}</td>
-          <td>{{ vrednovanje.bodRok }}</td>
-          <td>{{ vrednovanje.bodUkupno }}</td>
-          <td class="text-end"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<jhi-alert></jhi-alert>
+
+<div class="alert alert-warning" id="no-result" *ngIf="vrednovanjes?.length === 0">
+  <span jhiTranslate="tenderiApp.vrednovanje.home.notFound">No Vrednovanjes found</span>
+</div>
+
+<div class="table-responsive table-entities" id="entities" *ngIf="vrednovanjes && vrednovanjes.length > 0">
+  <table iid="ExampleTable" class="table table-hover" aria-describedby="page-heading">
+    <thead>
+      <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+        <th scope="col" jhiSortBy="sifraPostupka">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.sifraPostupka">Sifra Postupka</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="sifraPonude">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.sifraPonude">Sifra Ponude</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="brojPartije">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.brojPartije">Broj Partije</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="nazivProizvodjaca">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.nazivProizvodjaca">Naziv Proizvodjaca</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="zasticeniNaziv">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.zasticeniNaziv">Zasticeni Naziv</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="ponudjenaVrijednost">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.ponudjenaVrijednost">Ponudjena Vrijednost</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="rokIsporuke">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.rokIsporuke">Rok Isporuke</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="jedinicnaCijena">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.jedinicnaCijena">Jedinicna Cijena</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="nazivPonudjaca">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.nazivPonudjaca">Naziv Ponudjaca</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="atc">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.atc">Atc</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="trazenaKolicina">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.trazenaKolicina">Trazena Kolicina</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="procijenjenaVrijednost">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.procijenjenaVrijednost">Procijenjena Vrijednost</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="vrstaPostupka">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.vrstaPostupka">Vrsta Postupka</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="bodCijena">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.bodCijena">Bod Cijena</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="bodRok">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.bodRok">Bod Rok</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col" jhiSortBy="bodUkupno">
+          <div class="d-flex">
+            <span jhiTranslate="tenderiApp.vrednovanje.bodUkupno">Bod Ukupno</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vrednovanje of vrednovanjes; trackBy: trackId" data-cy="entityTable">
+        <td>{{ vrednovanje.sifraPostupka }}</td>
+        <td>{{ vrednovanje.sifraPonude }}</td>
+        <td>{{ vrednovanje.brojPartije }}</td>
+        <td>{{ vrednovanje.nazivProizvodjaca }}</td>
+        <td>{{ vrednovanje.zasticeniNaziv }}</td>
+        <td>{{ vrednovanje.ponudjenaVrijednost }}</td>
+        <td>{{ vrednovanje.rokIsporuke }}</td>
+        <td>{{ vrednovanje.jedinicnaCijena }}</td>
+        <td>{{ vrednovanje.nazivPonudjaca }}</td>
+        <td>{{ vrednovanje.atc }}</td>
+        <td>{{ vrednovanje.trazenaKolicina }}</td>
+        <td>{{ vrednovanje.procijenjenaVrijednost }}</td>
+        <td>{{ vrednovanje.vrstaPostupka }}</td>
+        <td>{{ vrednovanje.bodCijena }}</td>
+        <td>{{ vrednovanje.bodRok }}</td>
+        <td>{{ vrednovanje.bodUkupno }}</td>
+        <td class="text-end"></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
