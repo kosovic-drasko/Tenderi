@@ -8,12 +8,6 @@
 
         <div>
           <jhi-alert-error></jhi-alert-error>
-
-          <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-          </div>
-
           <div class="row mb-3">
             <label class="form-label" jhiTranslate="tenderiApp.ponude.sifraPostupka" for="field_sifraPostupka">Sifra Postupka</label>
             <input
@@ -188,23 +182,6 @@
               id="field_jedinicnaCijena"
               data-cy="jedinicnaCijena"
               formControlName="jedinicnaCijena"
-            />
-          </div>
-
-          <div class="row mb-3">
-            <label class="form-label" jhiTranslate="tenderiApp.ponude.selected" for="field_selected">Selected</label>
-            <input type="checkbox" class="form-check" name="selected" id="field_selected" data-cy="selected" formControlName="selected" />
-          </div>
-
-          <div class="row mb-3">
-            <label class="form-label" jhiTranslate="tenderiApp.ponude.sifraPonudjaca" for="field_sifraPonudjaca">Sifra Ponudjaca</label>
-            <input
-              type="number"
-              class="form-control"
-              name="sifraPonudjaca"
-              id="field_sifraPonudjaca"
-              data-cy="sifraPonudjaca"
-              formControlName="sifraPonudjaca"
             />
           </div>
 
