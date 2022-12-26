@@ -2,7 +2,7 @@
   "tenderiApp": {
     "specifikacije": {
       "home": {
-        "title": "Specifikacijes",
+        "title": "Specifikacije",
         "refreshListLabel": "Refresh list",
         "createLabel": "Kreiraj novi Specifikacije",
         "createOrEditLabel": "Kreirajte ili izmenite Specifikacije",

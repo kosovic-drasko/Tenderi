@@ -2,7 +2,7 @@
   "tenderiApp": {
     "prvorangirani": {
       "home": {
-        "title": "Prvorangiranis",
+        "title": "Prvorangirani",
         "refreshListLabel": "Refresh list",
         "notFound": "No Prvorangiranis found"
       },

@@ -2,7 +2,7 @@
   "tenderiApp": {
     "postupci": {
       "home": {
-        "title": "Postupcis",
+        "title": "Postupci",
         "refreshListLabel": "Refresh list",
         "createLabel": "Kreiraj novi Postupci",
         "createOrEditLabel": "Kreirajte ili izmenite Postupci",

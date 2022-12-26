@@ -1,22 +1,8 @@
 <div>
   <h4 id="page-heading" data-cy="ViewPonudeHeading">
-    <span jhiTranslate="tenderiApp.viewPonude.home.title">View Ponudes</span>
-
+    <span jhiTranslate="tenderiApp.viewPonude.home.title">View Ponude</span>
     <div class="d-flex justify-content-end">
-      <!--      <button class="btn btn-info me-2" (click)="exportArray()">-->
-      <!--        <span>Excel</span>-->
-      <!--      </button>-->
-
-      <!--      <button-->
-      <!--        id="jh-create-entity"-->
-      <!--        data-cy="entityCreateButton"-->
-      <!--        class="btn btn-warning jh-create-entity create-view-ponude"-->
-      <!--        (click)="add()"-->
-      <!--      >-->
-      <!--        <fa-icon icon="plus"></fa-icon>-->
-      <!--        <span jhiTranslate="tenderiApp.viewPonude.home.createLabel"> Kreiraj novi View Ponude </span>-->
-      <!--      </button>-->
-      <div class="btn-group" role="group" aria-label="Basic example">
+      <div class="btn-group" role="group">
         <button type="button" class="btn btn-primary" (click)="obrazacExcel()">Napravi</button>
         <button type="button" class="btn btn-primary" (click)="fileInput.click()">Nadji</button>
         <button type="button" class="btn btn-primary" (click)="uploadFile()">Unesi</button>
@@ -25,161 +11,176 @@
       </div>
       <input hidden #fileInput type="file" id="file1" />
     </div>
+
+    <input
+      type="text"
+      class="form-control"
+      name="articalName"
+      id="field_articalName"
+      data-cy="articalName"
+      [(ngModel)]="sifraPonude"
+      (input)="loadSifraPonude()"
+    />
+
+    <!--    <div *ngIf="postupak">-->
+    <div>
+      <select
+        class="form-control"
+        id="field_sifraPonudjaca"
+        data-cy="sifraPonudjaca"
+        name="sifraPonudjaca"
+        [(ngModel)]="sifraPonude"
+        (change)="loadSifraPonude()"
+        cl="loadPageSifraPonude()"
+      >
+        <option [ngValue]="null">Izaberi ponudjaca</option>
+        <option id="ponudjac" [ngValue]="ponudjaciOption.sifraPonude" *ngFor="let ponudjaciOption of viewPonudes">
+          {{ ponudjaciOption.nazivPonudjaca }}
+        </option>
+      </select>
+      <!--            <label class="form-label" jhiTranslate="tenderApp.ponude.nazivPonudjaca" for="field_sifraPonudjaca">Naziv Ponudjaca</label>-->
+    </div>
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="viewPonudes?.length === 0">
+      <span jhiTranslate="tenderiApp.viewPonude.home.notFound">No View Ponudes found</span>
+    </div>
+
+    <div id="ExampleTable" class="table-responsive table-entities" *ngIf="viewPonudes && viewPonudes.length > 0">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="sifraPostupka">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.sifraPostupka">Sifra Postupka</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="sifraPonude">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.sifraPonude">Sifra Ponude</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="brojPartije">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.brojPartije">Broj Partije</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nazivProizvodjaca">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.nazivProizvodjaca">Naziv Proizvodjaca</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="zasticeniNaziv">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.zasticeniNaziv">Zasticeni Naziv</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ponudjenaVrijednost">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.ponudjenaVrijednost">Ponudjena Vrijednost</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="rokIsporuke">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.rokIsporuke">Rok Isporuke</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="jedinicnaCijena">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.jedinicnaCijena">Jedinicna Cijena</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nazivPonudjaca">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.nazivPonudjaca">Naziv Ponudjaca</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nazivPonudjaca">
+              <div class="d-flex">
+                <span>Sifra Ponudjaca</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="karakteristika">
+              <div class="d-flex">
+                <span jhiTranslate="tenderiApp.viewPonude.karakteristika">Karakteristika</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let viewPonude of viewPonudes; trackBy: trackId" data-cy="entityTable">
+            <td>
+              <a [routerLink]="['/view-ponude', viewPonude.id, 'view']">{{ viewPonude.id }}</a>
+            </td>
+            <td>{{ viewPonude.sifraPostupka }}</td>
+            <td>{{ viewPonude.sifraPonude }}</td>
+            <td>{{ viewPonude.brojPartije }}</td>
+            <td>{{ viewPonude.nazivProizvodjaca }}</td>
+            <td>{{ viewPonude.zasticeniNaziv }}</td>
+            <td>{{ viewPonude.ponudjenaVrijednost }}</td>
+            <td>{{ viewPonude.rokIsporuke }}</td>
+            <td>{{ viewPonude.jedinicnaCijena }}</td>
+            <!--        <td>{{ viewPonude.selected }}</td>-->
+            <td>{{ viewPonude.nazivPonudjaca }}</td>
+            <td>{{ viewPonude.sifraPonudjaca }}</td>
+            <td>{{ viewPonude.karakteristika }}</td>
+            <td class="text-end">
+              <div class="btn-group">
+                <button
+                  *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                  type="submit"
+                  (click)="
+                    update(
+                      viewPonude.id,
+                      viewPonude.sifraPostupka,
+                      viewPonude.sifraPonude,
+                      viewPonude.brojPartije,
+                      viewPonude.sifraPonudjaca,
+                      viewPonude.nazivProizvodjaca,
+                      viewPonude.karakteristika,
+                      viewPonude.zasticeniNaziv,
+                      viewPonude.ponudjenaVrijednost,
+                      viewPonude.jedinicnaCijena,
+                      viewPonude.selected,
+                      viewPonude.rokIsporuke
+                    )
+                  "
+                  class="btn btn-primary btn-sm"
+                  data-cy="entityEditButton"
+                >
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button type="submit" (click)="delete(viewPonude)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </h4>
-  <input
-    type="text"
-    class="form-control"
-    name="articalName"
-    id="field_articalName"
-    data-cy="articalName"
-    [(ngModel)]="sifraPonude"
-    (input)="loadSifraPonude()"
-  />
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="viewPonudes?.length === 0">
-    <span jhiTranslate="tenderiApp.viewPonude.home.notFound">No View Ponudes found</span>
-  </div>
-
-  <div id="ExampleTable" class="table-responsive table-entities" *ngIf="viewPonudes && viewPonudes.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="sifraPostupka">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.sifraPostupka">Sifra Postupka</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="sifraPonude">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.sifraPonude">Sifra Ponude</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="brojPartije">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.brojPartije">Broj Partije</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="nazivProizvodjaca">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.nazivProizvodjaca">Naziv Proizvodjaca</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="zasticeniNaziv">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.zasticeniNaziv">Zasticeni Naziv</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="ponudjenaVrijednost">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.ponudjenaVrijednost">Ponudjena Vrijednost</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="rokIsporuke">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.rokIsporuke">Rok Isporuke</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="jedinicnaCijena">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.jedinicnaCijena">Jedinicna Cijena</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <!--        <th scope="col" jhiSortBy="selected">-->
-          <!--          <div class="d-flex">-->
-          <!--            <span jhiTranslate="tenderiApp.viewPonude.selected">Selected</span>-->
-          <!--            <fa-icon class="p-1" icon="sort"></fa-icon>-->
-          <!--          </div>-->
-          <!--        </th>-->
-          <th scope="col" jhiSortBy="nazivPonudjaca">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.nazivPonudjaca">Naziv Ponudjaca</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="nazivPonudjaca">
-            <div class="d-flex">
-              <span>Sifra Ponudjaca</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="karakteristika">
-            <div class="d-flex">
-              <span jhiTranslate="tenderiApp.viewPonude.karakteristika">Karakteristika</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let viewPonude of viewPonudes; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/view-ponude', viewPonude.id, 'view']">{{ viewPonude.id }}</a>
-          </td>
-          <td>{{ viewPonude.sifraPostupka }}</td>
-          <td>{{ viewPonude.sifraPonude }}</td>
-          <td>{{ viewPonude.brojPartije }}</td>
-          <td>{{ viewPonude.nazivProizvodjaca }}</td>
-          <td>{{ viewPonude.zasticeniNaziv }}</td>
-          <td>{{ viewPonude.ponudjenaVrijednost }}</td>
-          <td>{{ viewPonude.rokIsporuke }}</td>
-          <td>{{ viewPonude.jedinicnaCijena }}</td>
-          <!--        <td>{{ viewPonude.selected }}</td>-->
-          <td>{{ viewPonude.nazivPonudjaca }}</td>
-          <td>{{ viewPonude.sifraPonudjaca }}</td>
-          <td>{{ viewPonude.karakteristika }}</td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                type="submit"
-                class="btn btn-primary"
-                (click)="
-                  update(
-                    viewPonude.id,
-                    viewPonude.sifraPostupka,
-                    viewPonude.sifraPonude,
-                    viewPonude.brojPartije,
-                    viewPonude.sifraPonudjaca,
-                    viewPonude.nazivProizvodjaca,
-                    viewPonude.karakteristika,
-                    viewPonude.zasticeniNaziv,
-                    viewPonude.ponudjenaVrijednost,
-                    viewPonude.jedinicnaCijena,
-                    viewPonude.selected,
-                    viewPonude.rokIsporuke
-                  )
-                "
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Izmeni</span>
-              </button>
-
-              <button type="submit" (click)="delete(viewPonude)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Obriši</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 </div>

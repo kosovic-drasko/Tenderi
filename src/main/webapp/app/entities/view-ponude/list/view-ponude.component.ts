@@ -24,6 +24,7 @@ export class ViewPonudeComponent implements OnInit {
   predicate = 'id';
   ascending = true;
   brojObrazac?: number = 0;
+  ponudjaci?: [];
   @ViewChild('fileInput') fileInput: any;
   public resourceUrlExcelDownloadPostupak = SERVER_API_URL + 'api/ponude/file';
   constructor(

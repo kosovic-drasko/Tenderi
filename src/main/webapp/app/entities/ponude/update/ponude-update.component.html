@@ -1,11 +1,12 @@
 <div class="modal-content">
+  <div class="modal-header">
+    <h2 id="jhi-ponude-heading" data-cy="PonudeCreateUpdateHeading" jhiTranslate="tenderiApp.ponude.home.createOrEditLabel">
+      Kreirajte ili izmenite Ponude
+    </h2>
+  </div>
   <div class="d-flex justify-content-center">
     <div class="col-8">
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-        <h2 id="jhi-ponude-heading" data-cy="PonudeCreateUpdateHeading" jhiTranslate="tenderiApp.ponude.home.createOrEditLabel">
-          Kreirajte ili izmenite Ponude
-        </h2>
-
         <div>
           <jhi-alert-error></jhi-alert-error>
           <div class="row mb-3">

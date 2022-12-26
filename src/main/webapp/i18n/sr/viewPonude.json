@@ -2,7 +2,7 @@
   "tenderiApp": {
     "viewPonude": {
       "home": {
-        "title": "View Ponudes",
+        "title": "Ponude",
         "refreshListLabel": "Refresh list",
         "createLabel": "Kreiraj novi View Ponude",
         "createOrEditLabel": "Kreirajte ili izmenite View Ponude",

@@ -2,7 +2,7 @@
   "tenderiApp": {
     "tenderiHome": {
       "home": {
-        "title": "Tenderi Homes",
+        "title": "Tenderi",
         "refreshListLabel": "Refresh list",
         "notFound": "No Tenderi Homes found"
       },
