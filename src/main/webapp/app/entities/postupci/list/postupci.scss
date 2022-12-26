@@ -1,0 +1,49 @@
+td:hover {
+  color: white;
+}
+.mat-row:hover {
+  background-color: #2196f3;
+  color: white;
+}
+.crveno {
+  background: red;
+  color: white;
+}
+tr {
+  cursor: pointer;
+}
+table {
+  width: 100%;
+}
+
+mat-sidenav {
+  height: 500px;
+}
+.example-events {
+  width: 300px;
+  height: 200px;
+  overflow: auto;
+  border: 1px solid #555;
+}
+
+//mat-button-toggle {
+//  background-color: green;
+//  color: white;
+//}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+tr mat-row {
+  font-weight: bold;
+}
+#delete {
+  color: red;
+}
+#edit {
+  color: green;
+}
+mat-form-field {
+  width: 200px;
+}

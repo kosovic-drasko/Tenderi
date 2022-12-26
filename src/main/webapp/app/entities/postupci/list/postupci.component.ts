@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 @Component({
   selector: 'jhi-postupci',
   templateUrl: './postupci.component.html',
+  styleUrls: ['./postupci.scss'],
 })
 export class PostupciComponent implements OnInit {
   postupcis?: IPostupci[];
