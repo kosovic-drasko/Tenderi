@@ -73,9 +73,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let postupci of postupcis; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/postupci', postupci.id, 'view']">{{ postupci.id }}</a>
-          </td>
           <td [routerLink]="['/tenderi-home']" [queryParams]="{ sifra: postupci.sifraPostupka }">
             {{ postupci.sifraPostupka }}
           </td>

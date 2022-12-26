@@ -52,12 +52,6 @@
       <table class="table table-striped" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-            <th scope="col" jhiSortBy="id">
-              <div class="d-flex">
-                <span jhiTranslate="global.field.id">ID</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col" jhiSortBy="sifraPostupka">
               <div class="d-flex">
                 <span jhiTranslate="tenderiApp.viewPonude.sifraPostupka">Sifra Postupka</span>
@@ -129,9 +123,6 @@
         </thead>
         <tbody>
           <tr *ngFor="let viewPonude of viewPonudes; trackBy: trackId" data-cy="entityTable">
-            <td>
-              <a [routerLink]="['/view-ponude', viewPonude.id, 'view']">{{ viewPonude.id }}</a>
-            </td>
             <td>{{ viewPonude.sifraPostupka }}</td>
             <td>{{ viewPonude.sifraPonude }}</td>
             <td>{{ viewPonude.brojPartije }}</td>
