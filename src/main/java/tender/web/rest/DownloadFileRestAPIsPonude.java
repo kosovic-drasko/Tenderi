@@ -30,15 +30,16 @@ public class DownloadFileRestAPIsPonude {
             .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
             .body(new InputStreamResource(fileServices.loadFile()));
     }
-    //    @GetMapping("/api/ponude/file/{sifraPostupka}")
-    //    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable("sifraPostupka") Integer sifraPostupka) {
-    //        HttpHeaders headers = new HttpHeaders();
-    //        headers.add("Content-Disposition", "attachment; filename=ponude.xlsx");
-    //
-    //        return ResponseEntity
-    //            .ok()
-    //            .headers(headers)
-    //            .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
-    //            .body(new InputStreamResource(fileServices.loadPonudeExelFilePostupak(sifraPostupka)));
-    //    }
+
+    @GetMapping("/api/ponude/file/{sifraPostupka}")
+    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable("sifraPostupka") Integer sifraPostupka) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=ponude.xlsx");
+
+        return ResponseEntity
+            .ok()
+            .headers(headers)
+            .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+            .body(new InputStreamResource(fileServices.loadPonudeExelFilePostupak(sifraPostupka)));
+    }
 }

@@ -38,14 +38,15 @@ public class ExcelFileServicesSpecifikacije {
 
         return null;
     }
-    //    public ByteArrayInputStream loadObrazacPostupak(Integer sifraPostupka) {
-    //        List<Specifikacije> specifikacije = specifikacijeRepository.findBySifraPostupka(sifraPostupka);
-    //
-    //        try {
-    //            ByteArrayInputStream in = ExcelUtilsSpecifikacije.customersToExcel(specifikacije);
-    //            return in;
-    //        } catch (IOException e) {}
-    //
-    //        return null;
-    //    }
+
+    public ByteArrayInputStream loadObrazacPostupak(Integer sifraPostupka) {
+        List<Specifikacije> specifikacije = specifikacijeRepository.findBySifraPostupka(sifraPostupka);
+
+        try {
+            ByteArrayInputStream in = ExcelUtilsSpecifikacije.customersToExcel(specifikacije);
+            return in;
+        } catch (IOException e) {}
+
+        return null;
+    }
 }

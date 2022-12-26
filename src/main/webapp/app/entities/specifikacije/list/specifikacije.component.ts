@@ -17,12 +17,13 @@ import { SpecifikacijeUpdateComponent } from '../update/specifikacije-update.com
 })
 export class SpecifikacijeComponent implements OnInit {
   public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
+
   specifikacijes?: ISpecifikacije[];
   isLoading = false;
   predicate = 'id';
   ascending = true;
   message: string | undefined;
-
+  brojObrazac?: number = 0;
   @ViewChild('fileInput') fileInput: any;
   @Input() postupak: any;
   constructor(
@@ -210,5 +211,8 @@ export class SpecifikacijeComponent implements OnInit {
     modalRef.closed.subscribe(() => {
       this.load();
     });
+  }
+  obrazacExcel(): void {
+    window.location.href = `${this.resourceUrlExcelDownload}/${this.brojObrazac}`;
   }
 }

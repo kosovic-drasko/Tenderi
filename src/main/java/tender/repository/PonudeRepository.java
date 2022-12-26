@@ -12,6 +12,9 @@ import tender.domain.Ponude;
 @SuppressWarnings("unused")
 @Repository
 public interface PonudeRepository extends JpaRepository<Ponude, Long>, JpaSpecificationExecutor<Ponude> {
+    @Query("select p from Ponude p where p.sifraPostupka=:sifraPostupka")
+    List<Ponude> findBySifraPostupkaList(@Param("sifraPostupka") Integer sifraPostupka);
+
     @Query(
         value = "SELECT ponude.*, \n" +
         "ponudjaci.naziv_ponudjaca\n" +

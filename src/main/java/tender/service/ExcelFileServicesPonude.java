@@ -36,12 +36,13 @@ public class ExcelFileServicesPonude {
         } catch (IOException e) {}
         return null;
     }
-    //    public ByteArrayInputStream loadPonudeExelFilePostupak(Integer sifraPostupka) {
-    //        List<Ponude> ponude = ponudeRepository.findBySifraPostupkaList(sifraPostupka);
-    //        try {
-    //            ByteArrayInputStream in = ExcelUtilsPonude.customersToExcel(ponude);
-    //            return in;
-    //        } catch (IOException e) {}
-    //        return null;
-    //    }
+
+    public ByteArrayInputStream loadPonudeExelFilePostupak(Integer sifraPostupka) {
+        List<Ponude> ponude = ponudeRepository.findBySifraPostupkaList(sifraPostupka);
+        try {
+            ByteArrayInputStream in = ExcelUtilsPonude.customersToExcel(ponude);
+            return in;
+        } catch (IOException e) {}
+        return null;
+    }
 }

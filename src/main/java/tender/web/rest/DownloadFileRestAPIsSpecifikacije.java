@@ -30,15 +30,16 @@ public class DownloadFileRestAPIsSpecifikacije {
             .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
             .body(new InputStreamResource(fileServices.loadFile()));
     }
-    //    @GetMapping("/api/specifikacije/file/{sifraPostupka}")
-    //    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable("sifraPostupka") Integer sifraPostupka) {
-    //        HttpHeaders headers = new HttpHeaders();
-    //        headers.add("Content-Disposition", "attachment; filename=specifikacije.xlsx");
-    //
-    //        return ResponseEntity
-    //            .ok()
-    //            .headers(headers)
-    //            .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
-    //            .body(new InputStreamResource(fileServices.loadObrazacPostupak(sifraPostupka)));
-    //    }
+
+    @GetMapping("/api/specifikacije/file/{sifraPostupka}")
+    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable("sifraPostupka") Integer sifraPostupka) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=specifikacije.xlsx");
+
+        return ResponseEntity
+            .ok()
+            .headers(headers)
+            .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+            .body(new InputStreamResource(fileServices.loadObrazacPostupak(sifraPostupka)));
+    }
 }
