@@ -197,6 +197,21 @@
               formControlName="karakteristika"
             />
           </div>
+          <div class="row mb-3">
+            <label class="form-label">Ponudjac</label>
+            <select
+              class="form-control"
+              id="field_sifraPonudjaca1"
+              data-cy="sifraPonudjaca"
+              name="sifraPonudjaca"
+              formControlName="sifraPonudjaca"
+            >
+              <option [ngValue]="null"></option>
+              <option [ngValue]="ponudjaciOption.id" *ngFor="let ponudjaciOption of ponudjaci">
+                {{ ponudjaciOption.nazivPonudjaca }}
+              </option>
+            </select>
+          </div>
         </div>
 
         <div>
