@@ -35,11 +35,11 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "HvalePonude",
   "pagination": "no",
   "readOnly": true,
   "relationships": [],
-  "service": "no"
+  "service": "serviceClass"
 
 }
