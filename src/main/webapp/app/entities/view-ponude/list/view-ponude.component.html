@@ -5,36 +5,35 @@
     <button type="button" class="btn btn-primary" (click)="fileInput.click()">Nadji</button>
     <button type="button" class="btn btn-primary" (click)="uploadFile()">Unesi</button>
     <button type="button" class="btn btn-primary" (click)="exportArray()">Excel</button>
+    <input
+      type="text"
+      class="form-control"
+      name="articalName"
+      id="field_articalName"
+      data-cy="articalName"
+      [(ngModel)]="sifraPonude"
+      (input)="loadSifraPonude()"
+    />
+    <select
+      class="form-control"
+      id="field_sifraPonudjaca"
+      data-cy="sifraPonudjaca"
+      name="sifraPonudjaca"
+      [(ngModel)]="sifraPonude"
+      (change)="loadSifraPonude()"
+      cl="loadPageSifraPonude()"
+    >
+      <option [ngValue]="null">Izaberi ponudjaca</option>
+      <option id="ponudjac" [ngValue]="ponudjaciOption.sifraPonude" *ngFor="let ponudjaciOption of viewPonudes">
+        {{ ponudjaciOption.nazivPonudjaca }}
+      </option>
+    </select>
   </div>
   <input hidden #fileInput type="file" id="file1" />
 </div>
 
-<input
-  type="text"
-  class="form-control"
-  name="articalName"
-  id="field_articalName"
-  data-cy="articalName"
-  [(ngModel)]="sifraPonude"
-  (input)="loadSifraPonude()"
-/>
-
 <!--    <div *ngIf="postupak">-->
 <div>
-  <select
-    class="form-control"
-    id="field_sifraPonudjaca"
-    data-cy="sifraPonudjaca"
-    name="sifraPonudjaca"
-    [(ngModel)]="sifraPonude"
-    (change)="loadSifraPonude()"
-    cl="loadPageSifraPonude()"
-  >
-    <option [ngValue]="null">Izaberi ponudjaca</option>
-    <option id="ponudjac" [ngValue]="ponudjaciOption.sifraPonude" *ngFor="let ponudjaciOption of viewPonudes">
-      {{ ponudjaciOption.nazivPonudjaca }}
-    </option>
-  </select>
   <!--            <label class="form-label" jhiTranslate="tenderApp.ponude.nazivPonudjaca" for="field_sifraPonudjaca">Naziv Ponudjaca</label>-->
 </div>
 <jhi-alert-error></jhi-alert-error>
