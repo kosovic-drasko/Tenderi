@@ -40,6 +40,6 @@
   "pagination": "no",
   "readOnly": true,
   "relationships": [],
-  "service": "no",
-  "skipServer": true
+  "service": "no"
+
 }
