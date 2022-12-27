@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +42,7 @@ public class HvalePonudeQueryService extends QueryService<HvalePonude> {
     public List<HvalePonude> findByCriteria(HvalePonudeCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<HvalePonude> specification = createSpecification(criteria);
-        return hvalePonudeRepository.findAll((Sort) specification);
+        return hvalePonudeRepository.findAll(specification);
     }
 
     /**
@@ -64,12 +63,12 @@ public class HvalePonudeQueryService extends QueryService<HvalePonude> {
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the number of matching entities.
      */
-    //    @Transactional(readOnly = true)
-    //    public long countByCriteria(HvalePonudeCriteria criteria) {
-    //        log.debug("count by criteria : {}", criteria);
-    //        final Specification<HvalePonude> specification = createSpecification(criteria);
-    //        return hvalePonudeRepository.count(specification);
-    //    }
+    @Transactional(readOnly = true)
+    public long countByCriteria(HvalePonudeCriteria criteria) {
+        log.debug("count by criteria : {}", criteria);
+        final Specification<HvalePonude> specification = createSpecification(criteria);
+        return hvalePonudeRepository.count(specification);
+    }
 
     /**
      * Function to convert {@link HvalePonudeCriteria} to a {@link Specification}
