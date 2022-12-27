@@ -24,6 +24,8 @@ export class SpecifikacijeComponent implements OnInit {
   ascending = true;
   message: string | undefined;
   brojObrazac?: number = 0;
+  ukupno_procjenjeno?: number;
+
   @ViewChild('fileInput') fileInput: any;
   @Input() postupak: any;
   constructor(
@@ -65,6 +67,7 @@ export class SpecifikacijeComponent implements OnInit {
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.ukupno_procjenjeno = res.body?.reduce((acc, specifikacije) => acc + specifikacije.procijenjenaVrijednost!, 0);
       },
     });
   }
@@ -72,6 +75,7 @@ export class SpecifikacijeComponent implements OnInit {
     this.loadFromBackendWithRouteInformationsPostupak().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.ukupno_procjenjeno = res.body?.reduce((acc, specifikacije) => acc + specifikacije.procijenjenaVrijednost!, 0);
       },
     });
   }

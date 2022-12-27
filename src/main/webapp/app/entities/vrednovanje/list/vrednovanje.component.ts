@@ -15,7 +15,8 @@ import { TableUtil } from '../../../tableUtil';
 export class VrednovanjeComponent implements OnInit {
   vrednovanjes?: IVrednovanje[];
   isLoading = false;
-
+  ukupno_procjenjeno: number;
+  ukupno_ponudjeno: number;
   predicate = 'id';
   ascending = true;
   @Input() postupak: any;
@@ -32,6 +33,8 @@ export class VrednovanjeComponent implements OnInit {
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.ukupno_procjenjeno = res.body?.reduce((acc, vrednovanje) => acc + vrednovanje.procijenjenaVrijednost!, 0);
+        this.ukupno_ponudjeno = res.body?.reduce((acc, vrednovanje) => acc + vrednovanje.ponudjenaVrijednost!, 0);
       },
     });
   }
@@ -39,6 +42,8 @@ export class VrednovanjeComponent implements OnInit {
     this.loadFromBackendWithRouteInformationsPostupak().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.ukupno_procjenjeno = res.body?.reduce((acc, vrednovanje) => acc + vrednovanje.procijenjenaVrijednost!, 0);
+        this.ukupno_ponudjeno = res.body?.reduce((acc, vrednovanje) => acc + vrednovanje.ponudjenaVrijednost!, 0);
       },
     });
   }

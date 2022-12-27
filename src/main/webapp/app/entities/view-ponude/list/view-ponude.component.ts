@@ -26,7 +26,7 @@ export class ViewPonudeComponent implements OnInit {
   ascending = true;
   brojObrazac?: number = 0;
   ponudjaci?: [];
-  postupak1: number = 2;
+  ukupno_ponudjeno?: number;
   @Input() postupak: any;
   @ViewChild('fileInput') fileInput: any;
   public resourceUrlExcelDownloadPostupak = SERVER_API_URL + 'api/ponude/file';
@@ -57,7 +57,7 @@ export class ViewPonudeComponent implements OnInit {
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
-        console.log('Postupak je >>>>>>>>', this.postupak);
+        this.ukupno_ponudjeno = res.body?.reduce((acc, ponude) => acc + ponude.ponudjenaVrijednost!, 0);
       },
     });
   }
@@ -65,6 +65,7 @@ export class ViewPonudeComponent implements OnInit {
     this.loadPonude().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.ukupno_ponudjeno = res.body?.reduce((acc, ponude) => acc + ponude.ponudjenaVrijednost!, 0);
       },
     });
   }
@@ -72,6 +73,7 @@ export class ViewPonudeComponent implements OnInit {
     this.loadPostupak().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.ukupno_ponudjeno = res.body?.reduce((acc, ponude) => acc + ponude.ponudjenaVrijednost!, 0);
       },
     });
   }
