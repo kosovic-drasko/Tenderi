@@ -17,6 +17,7 @@ export class HvalePonudeComponent implements OnInit {
 
   predicate = 'id';
   ascending = true;
+  ukupno_procjenjeno?: number;
   @Input() postupak: any;
   constructor(
     protected hvalePonudeService: HvalePonudeService,
@@ -28,13 +29,19 @@ export class HvalePonudeComponent implements OnInit {
   trackId = (_index: number, item: IHvalePonude): number => this.hvalePonudeService.getHvalePonudeIdentifier(item);
 
   ngOnInit(): void {
-    this.load();
+    if (this.postupak !== undefined) {
+      this.loadSifraPostupka();
+    } else {
+      this.load();
+      console.log('Postupak je >>>>>>>>', this.postupak);
+    }
   }
 
   load(): void {
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.ukupno_procjenjeno = res.body?.reduce((acc, specifikacije) => acc + specifikacije.procijenjenaVrijednost!, 0);
       },
     });
   }
@@ -95,5 +102,24 @@ export class HvalePonudeComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+  loadSifraPostupka(): void {
+    this.loadFromBackendWithRouteInformationsPostupak().subscribe({
+      next: (res: EntityArrayResponseType) => {
+        this.onResponseSuccess(res);
+        this.ukupno_procjenjeno = res.body?.reduce((acc, specifikacije) => acc + specifikacije.procijenjenaVrijednost!, 0);
+      },
+    });
+  }
+  protected loadFromBackendWithRouteInformationsPostupak(): Observable<EntityArrayResponseType> {
+    return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
+      tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
+      switchMap(() => this.queryBackendPostupak(this.predicate, this.ascending))
+    );
+  }
+  protected queryBackendPostupak(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
+    this.isLoading = true;
+    const queryObject = { 'sifraPostupka.in': this.postupak, sort: this.getSortQueryParam(predicate, ascending) };
+    return this.hvalePonudeService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 }

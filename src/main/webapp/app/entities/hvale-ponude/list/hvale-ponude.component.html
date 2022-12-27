@@ -1,15 +1,4 @@
 <div>
-  <h2 id="page-heading" data-cy="HvalePonudeHeading">
-    <span jhiTranslate="tenderiApp.hvalePonude.home.title">Hvale Ponudes</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="tenderiApp.hvalePonude.home.refreshListLabel">Refresh list</span>
-      </button>
-    </div>
-  </h2>
-
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
@@ -18,8 +7,8 @@
     <span jhiTranslate="tenderiApp.hvalePonude.home.notFound">No Hvale Ponudes found</span>
   </div>
 
-  <div class="table-responsive table-entities" id="entities" *ngIf="hvalePonudes && hvalePonudes.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
+  <div *ngIf="hvalePonudes && hvalePonudes.length > 0">
+    <table id="ExampleTable" class="table table-hover" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id">
@@ -85,19 +74,7 @@
           <td>{{ hvalePonude.pakovanje }}</td>
           <td>{{ hvalePonude.trazenaKolicina }}</td>
           <td>{{ hvalePonude.procijenjenaVrijednost }}</td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/hvale-ponude', hvalePonude.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Pregled</span>
-              </button>
-            </div>
-          </td>
+          <td class="text-end"></td>
         </tr>
       </tbody>
     </table>
