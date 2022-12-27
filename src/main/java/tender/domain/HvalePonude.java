@@ -9,7 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A HvalePonude.
  */
 @Entity
-@Table(name = "hvale_ponude")
+@Table(name = "view_hvale_ponude")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class HvalePonude implements Serializable {
